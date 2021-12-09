@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-import { Box, FormGroup, FormControlLabel, Checkbox, TextField } from '@mui/material';
+import { Box, FormGroup, FormControlLabel, Radio } from '@mui/material';
 
-function CheckBoxCustom(props){
+function RadioButtonCustom(props){
     let {property, onChoseOneComponent} = props;
 
     const [state, setState] = useState()
@@ -26,12 +26,13 @@ function CheckBoxCustom(props){
     }, [property])
 
     useEffect(() => {
+        console.log(state + "asdasdsad")
     }, [state])
 
     return(
         <React.Fragment>            
             <Box
-                onClick={() => onChoseOneComponent("checkbox")}
+                onClick={()=>onChoseOneComponent("radiobutton")}
             >
                 <label>{state?state.label:"label"}</label>
                 <FormGroup>
@@ -39,9 +40,9 @@ function CheckBoxCustom(props){
                         state && state.content && state.content.length > 0 &&
                         state.content.map((item, index) => {
                             return <FormControlLabel 
-                            key={"formcontroll" + index}                            
+                            key={"formcontroll" + index}
                             value={item}
-                            control={<Checkbox key={"checkbox" + index}/>} label={item} />
+                            control={<Radio  key={"checkbox" + index}/>} label={item} />
                         })
                     }
                     {/* <FormControlLabel disabled control={<Checkbox defaultChecked/>} label="Disabled" /> */}
@@ -51,4 +52,4 @@ function CheckBoxCustom(props){
     )
 }
 
-export {CheckBoxCustom as CheckBox}
+export {RadioButtonCustom as RadioButton}

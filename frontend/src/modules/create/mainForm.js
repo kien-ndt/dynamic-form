@@ -2,24 +2,44 @@ import React, { useEffect, useState } from "react"
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import {CheckBox} from "../../common-components/checkbox";
+import { CheckBox } from "../../common-components/checkbox";
 import CheckBoxConfig from "../../config-common-components/checkbox"
+import RadioButtonConfig from "../../config-common-components/radiobutton";
+import { RadioButton } from "../../common-components/radiobutton";
 
 
 function MainForm(props){
 
-    const [formStruct, setFormStruct] = useState([{
-        property:{}
-    }])
+    const [formStruct, setFormStruct] = useState([
+        {
+            property:{}
+        },
+        {
+            property:{}
+        }
+    ])
+
+    const [elementChose, setElementChose] = useState({
+        index: null,
+        type: "",
+    })
 
     useEffect(() => {
-        // console.log(formStruct)
+        console.log(formStruct)
     }, [formStruct])
 
     const updatePropertyComponent = (index, newProperty) => {
+        console.log(newProperty)
         let newFormStruct = [...formStruct];
-        newFormStruct[0].property = newProperty;
+        newFormStruct[index].property = newProperty;
         setFormStruct(newFormStruct);
+    }
+
+    const onChoseOneComponent = (index, type) => {
+        setElementChose({
+            index: index,
+            type: type
+        })
     }
 
     return(
@@ -70,11 +90,19 @@ function MainForm(props){
                     }}>
                     <Grid container spacing={2}>
                         <Grid item xs={6} md={8}>
-                            <CheckBox
+                            <CheckBox 
                                 isEdit={true}
                                 property={formStruct[0].property}
+                                onChoseOneComponent={(typeComponent)=>onChoseOneComponent(0, typeComponent)}
                             />
-                        </Grid>                        
+                        </Grid>  
+                        <Grid item xs={6} md={8}>
+                            <RadioButton
+                                isEdit={true}
+                                property={formStruct[1].property}
+                                onChoseOneComponent={(typeComponent)=>onChoseOneComponent(1, typeComponent)}
+                            />
+                        </Grid>                       
                     </Grid>
                 </Paper>
             </Box>
@@ -85,9 +113,18 @@ function MainForm(props){
                     padding: "10px"
                 }}
             >
+                {
+                    elementChose && elementChose.type === 'checkbox' &&
                     <CheckBoxConfig 
                         updatePropertyComponent={(newProperty) => updatePropertyComponent(0, newProperty)}
                     />
+                }
+                {
+                    elementChose && elementChose.type === 'radiobutton' &&
+                    <RadioButtonConfig 
+                        updatePropertyComponent={(newProperty) => updatePropertyComponent(1, newProperty)}
+                    />
+                }
             </Box>
         </Box>
 
