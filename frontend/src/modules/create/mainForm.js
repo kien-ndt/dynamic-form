@@ -8,6 +8,11 @@ import RadioButtonConfig from "../../config-common-components/radiobutton";
 import { RadioButton } from "../../common-components/radiobutton";
 
 
+import TestDrag from "./testdrag";
+
+import { useDrop } from "react-dnd"
+
+
 function MainForm(props){
 
     const [formStruct, setFormStruct] = useState([
@@ -24,8 +29,20 @@ function MainForm(props){
         type: "",
     })
 
+    const [{ canDrop, canDrop2 }, drop] = useDrop(() => ({
+        // The type (or types) to accept - strings or symbols
+        accept: 'BOX',
+        // Props to collect
+        drop: (item) => {
+            console.log(item)
+        },
+        collect: (monitor) => ({
+          canDrop: console.log(monitor.getInitialClientOffset()),
+          canDrop2: console.log(monitor.getClientOffset())
+        })
+      }))
     useEffect(() => {
-        console.log(formStruct)
+        console.log(formStruct, " form")
     }, [formStruct])
 
     const updatePropertyComponent = (index, newProperty) => {
@@ -40,15 +57,21 @@ function MainForm(props){
             index: index,
             type: type
         })
+        console.log(document.getElementById("main-form").getBoundingClientRect())
+        document.getElementById("main-form").addEventListener('mousemove', (event) => {
+            console.log(`Mouse X: ${event.clientX}, Mouse Y: ${event.clientY}`);
+        });
     }
 
     return(
+        
         <Box
             sx={{
                 width: "100vw",
                 height: "100vh",
                 display: 'flex'
             }}>  
+
             {/* Box lấy các thành phần */}
             <Box
                 sx={{
@@ -62,7 +85,7 @@ function MainForm(props){
                     }}
                 >
                     <Grid item xs={8}>
-                        asdadasd
+                        <TestDrag />
                     </Grid>
                 </Grid>
             </Box>
@@ -81,7 +104,10 @@ function MainForm(props){
                 //     opacity: [0.9, 0.8, 0.7],
                 // },
                 }}>            
-                <Paper elevation={3}
+                <Paper 
+                    id="main-form"
+                    ref={drop}
+                    elevation={3}
                     sx={{
                         width: "500px",
                         height: "fit-content",
@@ -127,7 +153,6 @@ function MainForm(props){
                 }
             </Box>
         </Box>
-
         
     
     )
