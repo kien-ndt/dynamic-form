@@ -1,10 +1,11 @@
-import { Box, TextField } from '@mui/material';
+import { Box, FormGroup, FormControlLabel, Checkbox, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
-import GridWidth from '../common/grid-width';
+import GridWidth from './common/grid-width';
 
-function RadioButtonConfig(props){
+function CheckBoxConfig(props){
 
     const {property, updatePropertyComponent} = props
+
     
     const convertArrayToStringElementToRow = (arr) => {
         let strRes = ""
@@ -65,23 +66,18 @@ function RadioButtonConfig(props){
 
 
     return(
-        <Box
-            sx={{
-                display: "flex",
-                flexDirection:"column"
-            }}
-        >
+        <Box>
             <TextField 
-                id="radiobutton-label" 
+                id="checkbox-label" 
                 label="Label" 
                 variant="standard" 
                 style={{marginBottom: "20px", width: "inherit"}} 
                 InputLabelProps={{ shrink: true }}
-                value={state?(state.label?state.label:""):""}
+                value={state?.label}
                 onChange={(e) => onLabelChange(e)}
             />
             <TextField 
-                id="radiobutton-content" 
+                id="checkbox-content" 
                 label="Content (each choice in 1 row)" 
                 variant="standard" 
                 multiline rows={4} 
@@ -89,23 +85,12 @@ function RadioButtonConfig(props){
                 value={state.content}
                 onChange={(e) => onContentChange(e)}
             />
-            <TextField 
-                id="radiobutton-content-11" 
-                label="Content (each choice in 1 row)" 
-                variant="standard" 
-                multiline rows={4} 
-                InputLabelProps={{ shrink: true }}
-                value={state.content}
-                onChange={(e) => onContentChange(e)}
-            />
-            
             <GridWidth
                 gridWidth={state?.gridWidth}
                 onGridWidthChange={(gridWidth) => {setState({...state, gridWidth: gridWidth})}}
             />
-
         </Box>
     )
 }
 
-export default RadioButtonConfig
+export default CheckBoxConfig

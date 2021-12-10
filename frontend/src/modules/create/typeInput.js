@@ -1,6 +1,7 @@
 const typeInput = {
     CheckBox: "checkbox",
-    RadioButton: "radiobutton"
+    RadioButton: "radiobutton",
+    TextField: "textfield"
 }
 
 export default typeInput

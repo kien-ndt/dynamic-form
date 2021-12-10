@@ -3,9 +3,11 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { CheckBox } from "../../common-components/checkbox";
-import CheckBoxConfig from "../../config-common-components/checkbox"
-import RadioButtonConfig from "../../config-common-components/radiobutton";
+import CheckBoxConfig from "../../config-common-components/checkBoxConfig"
+import RadioButtonConfig from "../../config-common-components/radioButtonConfig";
+import TextFieldConfig from "../../config-common-components/textFieldConfig";
 import { RadioButton } from "../../common-components/radiobutton";
+import { TextField } from "../../common-components/textfield";
 import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
 import TestDrag from "./testdrag";
 import typeInput from "./typeInput";
@@ -16,7 +18,7 @@ function MainForm(props){
 
     const [formStruct, setFormStruct] = useState([
         {
-            type: typeInput.CheckBox,
+            type: typeInput.TextField,
             property:{
                 label: "ví dụ 1",
                 content: ["lựa chọn 1", "lựa chọn 2"],
@@ -206,6 +208,11 @@ function MainForm(props){
                             name={typeInput.RadioButton}
                         />
                     </Grid>
+                    <Grid item xs={2}>
+                        <TestDrag 
+                            name={typeInput.TextField}
+                        />
+                    </Grid>
                 </Grid>
             </Box>
 
@@ -269,15 +276,22 @@ function MainForm(props){
                 }}
             >
                 {
-                    elementChose && elementChose.type === 'checkbox' &&
+                    elementChose && elementChose.type === typeInput.CheckBox &&
                     <CheckBoxConfig 
                         property={formStruct?formStruct[elementChose.index].property:null}
                         updatePropertyComponent={(newProperty) => updatePropertyComponent(elementChose.index, newProperty)}
                     />
                 }
                 {
-                    elementChose && elementChose.type === 'radiobutton' &&
+                    elementChose && elementChose.type === typeInput.RadioButton &&
                     <RadioButtonConfig 
+                        property={formStruct?formStruct[elementChose.index].property:null}
+                        updatePropertyComponent={(newProperty) => updatePropertyComponent(elementChose.index, newProperty)}
+                    />
+                }
+                {
+                    elementChose && elementChose.type === typeInput.TextField &&
+                    <TextFieldConfig 
                         property={formStruct?formStruct[elementChose.index].property:null}
                         updatePropertyComponent={(newProperty) => updatePropertyComponent(elementChose.index, newProperty)}
                     />
@@ -296,7 +310,7 @@ export default MainForm
 const SortableList = SortableContainer((props) => {
     let {formStruct, typeInput, onChoseOneComponent, refUpdateComponent } = props
     return (        
-        <Grid container spacing={2}>
+        <Grid container spacing={1} style={{border: "2px solid green"}}>
         {
             formStruct && formStruct.length>0 &&
             formStruct.map((item, index) => (  
@@ -322,7 +336,8 @@ const SortableItem = SortableElement((props) =>{
             item xs={item?.property?.gridWidth?item.property.gridWidth:4} md={item?.property?.gridWidth?item.property.gridWidth:4} 
             ref={(element) => refUpdateComponent(element, index1)}     
             style={{
-                border: "1px solid blue"
+                border: "1px solid blue",
+                boxSizing: "border-box"
             }}
         >
             {
@@ -336,6 +351,14 @@ const SortableItem = SortableElement((props) =>{
             {
                 item.type===typeInput.RadioButton &&
                 <RadioButton
+                    isEdit={true}
+                    property={item.property}
+                    onChoseOneComponent={(typeComponent)=>onChoseOneComponent(index1, typeComponent)}
+                />
+            }
+            {
+                item.type===typeInput.TextField &&
+                <TextField
                     isEdit={true}
                     property={item.property}
                     onChoseOneComponent={(typeComponent)=>onChoseOneComponent(index1, typeComponent)}

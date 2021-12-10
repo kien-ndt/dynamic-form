@@ -1,6 +1,7 @@
 import { useDrag } from "react-dnd";
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
+import ShortTextIcon from '@mui/icons-material/ShortText';
 import typeInput from "./typeInput";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -18,6 +19,9 @@ function TestDrag(props) {
                     break;
                 case typeInput.RadioButton: 
                     icon = <RadioButtonCheckedIcon fontSize="large" color="primary"/>
+                    break;
+                case typeInput.TextField: 
+                    icon = <ShortTextIcon fontSize="large" color="primary"/>
                     break;
             }
             setProperties({

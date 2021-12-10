@@ -1,11 +1,10 @@
-import { Box, FormGroup, FormControlLabel, Checkbox, TextField } from '@mui/material';
+import { Box, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
-import GridWidth from '../common/grid-width';
+import GridWidth from './common/grid-width';
 
-function CheckBoxConfig(props){
+function RadioButtonConfig(props){
 
     const {property, updatePropertyComponent} = props
-
     
     const convertArrayToStringElementToRow = (arr) => {
         let strRes = ""
@@ -66,18 +65,23 @@ function CheckBoxConfig(props){
 
 
     return(
-        <Box>
+        <Box
+            sx={{
+                display: "flex",
+                flexDirection:"column"
+            }}
+        >
             <TextField 
-                id="checkbox-label" 
+                id="radiobutton-label" 
                 label="Label" 
                 variant="standard" 
                 style={{marginBottom: "20px", width: "inherit"}} 
                 InputLabelProps={{ shrink: true }}
-                value={state?.label}
+                value={state?(state.label?state.label:""):""}
                 onChange={(e) => onLabelChange(e)}
             />
             <TextField 
-                id="checkbox-content" 
+                id="radiobutton-content" 
                 label="Content (each choice in 1 row)" 
                 variant="standard" 
                 multiline rows={4} 
@@ -85,12 +89,14 @@ function CheckBoxConfig(props){
                 value={state.content}
                 onChange={(e) => onContentChange(e)}
             />
+            
             <GridWidth
                 gridWidth={state?.gridWidth}
                 onGridWidthChange={(gridWidth) => {setState({...state, gridWidth: gridWidth})}}
             />
+
         </Box>
     )
 }
 
-export default CheckBoxConfig
+export default RadioButtonConfig

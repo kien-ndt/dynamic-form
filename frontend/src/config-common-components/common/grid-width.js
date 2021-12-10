@@ -27,7 +27,7 @@ function GridWidth(props) {
         </Typography>
         <Slider
             aria-label="Gridwidth"
-            defaultValue={state?Number(state):5}
+            defaultValue={state?Number(state):4}
             getAriaValueText={(valuetext) => setState(valuetext)}
             valueLabelDisplay="auto"
             step={1}
