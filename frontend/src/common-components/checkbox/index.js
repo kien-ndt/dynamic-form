@@ -8,7 +8,7 @@ function CheckBoxCustom(props){
     const [state, setState] = useState()
 
     const defaultValue = {
-        label: "label",
+        label: "label checkbox",
         content: ["Choice 1"]
     }
 
