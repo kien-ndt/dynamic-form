@@ -16,10 +16,16 @@ import { useDrop } from "react-dnd"
 import DatetimeConfig from "../../config-common-components/datetimeConfig";
 import SelectBoxConfig from "../../config-common-components/selectBoxConfig";
 import { SelectBox } from "../../common-components/selectBoxCustom";
-
+import TitleFormConfig from "../../config-common-components/titleFormConfig";
+import { TitleForm } from "../../common-components/titleFormCustom";
 function MainForm(props){
 
+    const [tieude, settieude] = useState("")
+
     const [formStruct, setFormStruct] = useState([
+
+       
+
         {
             type: typeInput.SelectBox,
             property:{
@@ -95,6 +101,9 @@ function MainForm(props){
         collect: (monitor) => ({
         })
     }))
+
+
+    
 
 
 
@@ -190,6 +199,9 @@ function MainForm(props){
 
             {/* Box lấy các thành phần */}
             <Box
+
+
+                
                 sx={{
                     width: "25vw",
                     height: "100vh"                
@@ -225,6 +237,12 @@ function MainForm(props){
                             name={typeInput.Datetime}
                         />
                     </Grid>
+                    <Grid item xs={2}>
+                        <TestDrag 
+                            name={typeInput.TitleForm}
+                        />
+                    </Grid>
+
                 </Grid>
             </Box>
 
@@ -245,8 +263,16 @@ function MainForm(props){
                 // },
                 }}
                 onScroll={refUpdatePositionComponent(componentArray.current)}
-                >            
+            >  
+            
+
+            
+
                 <Paper 
+
+
+
+                    
                     id="main-form"
                     ref={drop}
                     elevation={3}
@@ -278,9 +304,14 @@ function MainForm(props){
                     />
 
                 </Paper>
-                        <button onClick={() => {console.log(formStruct)}}>23132123123</button>
-            </Box>
+                
+                <Paper>
 
+                        Đây là khoàng trắng
+                </Paper>
+
+            </Box>
+            
             {/* Box cái đặt thuộc tính cho component */}
             <Box
                 sx={{
@@ -309,9 +340,24 @@ function MainForm(props){
                     />
                 }
 
-{
+                {
+                    elementChose && elementChose.type === typeInput.Datetime &&
+                    <DatetimeConfig 
+                        property={formStruct?formStruct[elementChose.index].property:null}
+                        updatePropertyComponent={(newProperty) => updatePropertyComponent(elementChose.index, newProperty)}
+                    />
+                }
+
+                {
                     elementChose && elementChose.type === typeInput.SelectBox &&
                     <SelectBoxConfig 
+                        property={formStruct?formStruct[elementChose.index].property:null}
+                        updatePropertyComponent={(newProperty) => updatePropertyComponent(elementChose.index, newProperty)}
+                    />
+                }
+                 {
+                    elementChose && elementChose.type === typeInput.TitleForm &&
+                    <TitleFormConfig 
                         property={formStruct?formStruct[elementChose.index].property:null}
                         updatePropertyComponent={(newProperty) => updatePropertyComponent(elementChose.index, newProperty)}
                     />
@@ -397,6 +443,14 @@ const SortableItem = SortableElement((props) =>{
             {
                 item.type===typeInput.SelectBox &&
                 <SelectBox
+                    isEdit={true}
+                    property={item.property}
+                    onChoseOneComponent={(typeComponent)=>onChoseOneComponent(index1, typeComponent)}
+                />
+            }
+            {
+                item.type===typeInput.TitleForm &&
+                <TitleForm
                     isEdit={true}
                     property={item.property}
                     onChoseOneComponent={(typeComponent)=>onChoseOneComponent(index1, typeComponent)}

@@ -8,7 +8,7 @@ import AllInboxIcon from '@mui/icons-material/AllInbox';
 import CalendarViewMonthIcon from '@mui/icons-material/CalendarViewMonth';
 import TitleIcon from '@mui/icons-material/Title';
 import Title from "@mui/icons-material/Title";
-function TestDrag(props) {
+function TestTitle(props) {
     let {name} = props
 
     const [properties, setProperties] = useState()
@@ -17,24 +17,6 @@ function TestDrag(props) {
         if (props){
             let icon;
             switch(name){
-                case typeInput.CheckBox: 
-                    icon = <CheckBoxIcon fontSize="large" color="primary"/> 
-                    break;
-                case typeInput.RadioButton: 
-                    icon = <RadioButtonCheckedIcon fontSize="large" color="primary"/>
-                    break;
-                case typeInput.TextField: 
-                    icon = <ShortTextIcon fontSize="large" color="primary"/>
-                    break;
-                case typeInput.SelectBox:
-                    icon = <AllInboxIcon fontSize="large" color="primary"/>
-                    break;
-                case typeInput.Datetime:
-                    icon = <CalendarViewMonthIcon fontSize="large" color="primary"/>
-                    break;
-                case typeInput.Datetime:
-                    icon = <CalendarViewMonthIcon fontSize="large" color="primary"/>
-                    break;
                 case typeInput.TitleForm:
                     icon = <Title fontSize="large" color="primary"/>
                     break;
@@ -67,4 +49,4 @@ function TestDrag(props) {
     );
 }
 
-export default TestDrag;
+export default TestTitle;

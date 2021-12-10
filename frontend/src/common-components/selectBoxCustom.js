@@ -25,8 +25,10 @@ function SelectBoxCustom(props){
     }, [property])
 
     return(
-        <React.Fragment>            
-            <Box sx={{ minWidth: 120 }}>
+        <React.Fragment>   
+                     
+            <Box sx={{ minWidth: 10 }}>
+            {()=>onChoseOneComponent("textfield")}
             <FormControl fullWidth>
                 <InputLabel variant="standard" htmlFor="uncontrolled-native">
                 Age
