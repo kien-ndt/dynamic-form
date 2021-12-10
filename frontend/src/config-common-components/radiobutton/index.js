@@ -1,5 +1,6 @@
 import { Box, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
+import GridWidth from '../common/grid-width';
 
 function RadioButtonConfig(props){
 
@@ -21,7 +22,8 @@ function RadioButtonConfig(props){
 
     const [state, setState] = useState({
         label: property.label,
-        content: convertArrayToStringElementToRow(property.content)
+        content: convertArrayToStringElementToRow(property.content),
+        gridWidth: property.gridWidth
     });
     
     const onLabelChange = (e) => {
@@ -56,7 +58,8 @@ function RadioButtonConfig(props){
     useEffect(() => {
         updatePropertyComponent({
             label: state.label,
-            content: convertStringToArrayRowToElement(state.content)
+            content: convertStringToArrayRowToElement(state.content),
+            gridWidth: state.gridWidth
         })
     }, [state])
 
@@ -74,7 +77,7 @@ function RadioButtonConfig(props){
                 variant="standard" 
                 style={{marginBottom: "20px", width: "inherit"}} 
                 InputLabelProps={{ shrink: true }}
-                value={state?.label}
+                value={state?(state.label?state.label:""):""}
                 onChange={(e) => onLabelChange(e)}
             />
             <TextField 
@@ -94,6 +97,11 @@ function RadioButtonConfig(props){
                 InputLabelProps={{ shrink: true }}
                 value={state.content}
                 onChange={(e) => onContentChange(e)}
+            />
+            
+            <GridWidth
+                gridWidth={state?.gridWidth}
+                onGridWidthChange={(gridWidth) => {setState({...state, gridWidth: gridWidth})}}
             />
 
         </Box>

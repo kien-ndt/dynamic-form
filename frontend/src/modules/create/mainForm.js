@@ -6,33 +6,28 @@ import { CheckBox } from "../../common-components/checkbox";
 import CheckBoxConfig from "../../config-common-components/checkbox"
 import RadioButtonConfig from "../../config-common-components/radiobutton";
 import { RadioButton } from "../../common-components/radiobutton";
-
-
+import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
 import TestDrag from "./testdrag";
-
+import typeInput from "./typeInput";
 import { useDrop } from "react-dnd"
 
 
 function MainForm(props){
 
-    const typeInput = {
-        CheckBox: "checkbox",
-        RadioButton: "radiobutton"
-    }
-
     const [formStruct, setFormStruct] = useState([
         {
-            type: "checkbox",
+            type: typeInput.CheckBox,
             property:{
                 label: "ví dụ 1",
-                content: ["lựa chọn 1", "lựa chọn 2"]
+                content: ["lựa chọn 1", "lựa chọn 2"],
+                gridWidth: 4
             }
         },
         {
-            type: "radiobutton",
+            type: typeInput.RadioButton,
             property:{
                 label: "ví dụ 2",
-                content: ["lựa chọn 1", "lựa chọn 2 saklfjsklfsjf klsiougs kjweursdf"]
+                content: ["lựa chọn 1", "lựa chọn 2 saklfjsklfsjf klsiougs kjweursdf"],
             }
         },
     ])
@@ -129,7 +124,7 @@ function MainForm(props){
                 property: {}
             })
         }
-        // setFormStruct(prevForm)
+        setFormStruct(prevForm)
     }
 
     const updatePropertyComponent = (index, newProperty) => {
@@ -139,6 +134,7 @@ function MainForm(props){
     }
 
     const onChoseOneComponent = (index, type) => {
+        console.log(index, "onChoseOneComponent")
         setElementChose({
             index: index,
             type: type
@@ -176,6 +172,7 @@ function MainForm(props){
                 refUpdateComponent(componentArray.current)
             },100)           
         }
+        console.log(formStruct)
     }, [formStruct])
 
     return(
@@ -199,8 +196,15 @@ function MainForm(props){
                         border: "1px solid black"
                     }}
                 >
-                    <Grid item xs={8}>
-                        <TestDrag />
+                    <Grid item xs={2}>
+                        <TestDrag 
+                            name={typeInput.CheckBox}
+                        />
+                    </Grid>
+                    <Grid item xs={2}>
+                        <TestDrag 
+                            name={typeInput.RadioButton}
+                        />
                     </Grid>
                 </Grid>
             </Box>
@@ -236,38 +240,24 @@ function MainForm(props){
                         marginLeft: "auto",
                         marginRight: "auto"
                     }}>
-                    <Grid container spacing={2}>
-                        {
-                            formStruct && formStruct.length>0 &&
-                            formStruct.map((item, index) => (                                
-                                <Grid 
-                                    item xs={4} md={4} 
-                                    ref={(element) => refUpdateComponent(element, index)}                                
-                                    key={"grid" + index}
-                                    style={{
-                                        border: "2px solid red"
-                                    }}
-                                >
-                                    {
-                                        item.type===typeInput.CheckBox &&
-                                        <CheckBox 
-                                            isEdit={true}
-                                            property={item.property}
-                                            onChoseOneComponent={(typeComponent)=>onChoseOneComponent(index, typeComponent)}
-                                        />
-                                    }
-                                    {
-                                        item.type===typeInput.RadioButton &&
-                                        <RadioButton
-                                            isEdit={true}
-                                            property={item.property}
-                                            onChoseOneComponent={(typeComponent)=>onChoseOneComponent(index, typeComponent)}
-                                        />
-                                    }
-                                </Grid> 
-                            ))
-                        } 
-                    </Grid>
+
+                    <SortableList 
+                        formStruct={formStruct}
+                        onSortEnd={({oldIndex, newIndex}) => {
+                            let arrayAddress = [...formStruct];
+                            let tmp = arrayAddress[newIndex]
+                            arrayAddress[newIndex] = arrayAddress[oldIndex]
+                            arrayAddress[oldIndex] = tmp
+                            // arrayAddress = arrayMove(arrayAddress, oldIndex, newIndex);
+                            setFormStruct(arrayAddress)
+                        }}
+                        distance={1}
+                        axis={"xy"}
+                        typeInput={typeInput}
+                        onChoseOneComponent={onChoseOneComponent}
+                        refUpdateComponent={refUpdateComponent}
+                    />
+
                 </Paper>
                         <button onClick={() => {console.log(formStruct)}}>23132123123</button>
             </Box>
@@ -281,15 +271,15 @@ function MainForm(props){
                 {
                     elementChose && elementChose.type === 'checkbox' &&
                     <CheckBoxConfig 
-                        property={formStruct?formStruct[0].property:null}
-                        updatePropertyComponent={(newProperty) => updatePropertyComponent(0, newProperty)}
+                        property={formStruct?formStruct[elementChose.index].property:null}
+                        updatePropertyComponent={(newProperty) => updatePropertyComponent(elementChose.index, newProperty)}
                     />
                 }
                 {
                     elementChose && elementChose.type === 'radiobutton' &&
                     <RadioButtonConfig 
-                        property={formStruct?formStruct[1].property:null}
-                        updatePropertyComponent={(newProperty) => updatePropertyComponent(1, newProperty)}
+                        property={formStruct?formStruct[elementChose.index].property:null}
+                        updatePropertyComponent={(newProperty) => updatePropertyComponent(elementChose.index, newProperty)}
                     />
                 }
             </Box>
@@ -300,3 +290,57 @@ function MainForm(props){
 }
 
 export default MainForm
+
+
+
+const SortableList = SortableContainer((props) => {
+    let {formStruct, typeInput, onChoseOneComponent, refUpdateComponent } = props
+    return (        
+        <Grid container spacing={2}>
+        {
+            formStruct && formStruct.length>0 &&
+            formStruct.map((item, index) => (  
+                <SortableItem 
+                    item={item}       
+                    index1={index}    
+                    index={index}
+                    typeInput={typeInput}
+                    onChoseOneComponent={onChoseOneComponent}
+                    refUpdateComponent={refUpdateComponent}                
+                    key={"grid" + index}
+                />                              
+            ))
+        } 
+        </Grid>
+    )
+  });
+  
+const SortableItem = SortableElement((props) =>{
+    let {item, index1, typeInput, onChoseOneComponent, refUpdateComponent} = props
+    return(
+        <Grid 
+            item xs={item?.property?.gridWidth?item.property.gridWidth:4} md={item?.property?.gridWidth?item.property.gridWidth:4} 
+            ref={(element) => refUpdateComponent(element, index1)}     
+            style={{
+                border: "1px solid blue"
+            }}
+        >
+            {
+                item.type===typeInput.CheckBox &&
+                <CheckBox 
+                    isEdit={true}
+                    property={item.property}
+                    onChoseOneComponent={(typeComponent)=>onChoseOneComponent(index1, typeComponent)}
+                />
+            }
+            {
+                item.type===typeInput.RadioButton &&
+                <RadioButton
+                    isEdit={true}
+                    property={item.property}
+                    onChoseOneComponent={(typeComponent)=>onChoseOneComponent(index1, typeComponent)}
+                />
+            }
+        </Grid> 
+    )
+});

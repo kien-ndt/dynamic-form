@@ -1,5 +1,6 @@
 import { Box, FormGroup, FormControlLabel, Checkbox, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
+import GridWidth from '../common/grid-width';
 
 function CheckBoxConfig(props){
 
@@ -22,7 +23,8 @@ function CheckBoxConfig(props){
 
     const [state, setState] = useState({
         label: property.label,
-        content: convertArrayToStringElementToRow(property.content)
+        content: convertArrayToStringElementToRow(property.content),
+        gridWidth: property.gridWidth
     });
     
     const onLabelChange = (e) => {
@@ -57,7 +59,8 @@ function CheckBoxConfig(props){
     useEffect(() => {
         updatePropertyComponent({
             label: state.label,
-            content: convertStringToArrayRowToElement(state.content)
+            content: convertStringToArrayRowToElement(state.content),
+            gridWidth: state.gridWidth
         })
     }, [state])
 
@@ -82,7 +85,10 @@ function CheckBoxConfig(props){
                 value={state.content}
                 onChange={(e) => onContentChange(e)}
             />
-
+            <GridWidth
+                gridWidth={state?.gridWidth}
+                onGridWidthChange={(gridWidth) => {setState({...state, gridWidth: gridWidth})}}
+            />
         </Box>
     )
 }
