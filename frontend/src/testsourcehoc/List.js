@@ -67,7 +67,7 @@ const List = () => {
   const myList = listData.map((el) => (
     <div className="list__card">
       <div className="list__card-left">
-        <img src={el.img} alt={el.name} />
+        <img alt={el.name} />
       </div>
       <div className="list__card-right">
         <div className="list__card-right--name"> {el.name} </div>
@@ -80,7 +80,7 @@ const List = () => {
   const SortableItem = SortableElement(({ value, index }) => (
     <div className="list__card" index={index}>
       <div className="list__card-left">
-        <img src={value.img} alt={value.name} />
+        <img alt={value.name} />
       </div>
       <div className="list__card-right">
         <div className="list__card-right--name"> {value.name} </div>
