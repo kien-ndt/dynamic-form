@@ -3,17 +3,27 @@ import { useEffect, useState } from 'react';
 
 function RadioButtonConfig(props){
 
-    const {updatePropertyComponent} = props
+    const {property, updatePropertyComponent} = props
+    
+    const convertArrayToStringElementToRow = (arr) => {
+        let strRes = ""
+        if (arr && arr.length > 0){
+            arr.forEach(element => {
+                strRes += '\n'
+                strRes += element;
+            });
+        }
+        if (strRes.length > 0){
+            strRes = strRes.slice(1)
+        }
+        return strRes;
+    }
 
     const [state, setState] = useState({
-        label: "",
-        content: []
+        label: property.label,
+        content: convertArrayToStringElementToRow(property.content)
     });
     
-    useEffect(() => {
-        setState(state)
-    }, [props])
-
     const onLabelChange = (e) => {
         let value = e?.target?.value;
         setState({
@@ -30,19 +40,6 @@ function RadioButtonConfig(props){
         })
     }
 
-    const convertArrayToStringElementToRow = (arr) => {
-        let strRes = ""
-        if (arr && arr.length > 0){
-            arr.forEach(element => {
-                strRes += '\n'
-                strRes += element;
-            });
-        }
-        if (strRes.length > 0){
-            strRes = strRes.slice(1)
-        }
-        return strRes;
-    }
 
     const convertStringToArrayRowToElement = (strRes) => {
         let arr = []        

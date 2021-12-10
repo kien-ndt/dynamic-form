@@ -61,7 +61,6 @@ function MainForm(props){
                     width: domrect.width,
                     height: domrect.height
                 })
-                console.log(domrect)
             }
             catch(e){
             }
@@ -104,8 +103,6 @@ function MainForm(props){
         let indexPos = arrPos?arrPos.length:0;
         if (arrPos && arrPos.length > 0){
             let minx=9999999, miny=999999999999;
-            console.log(arrPos)
-            console.log(dropPos)
             arrPos.map((item, index) => {
                 let disx = Math.abs(dropPos.x - item.x - item.width/2);
                 let disy = Math.abs(dropPos.y - item.y - item.height/2);
@@ -123,7 +120,6 @@ function MainForm(props){
             })
         }
         let prevForm = refFormStruct.current.slice(0)
-        console.log(indexPos, " day la vi tri in")
         if (!prevForm || prevForm.length === 0){
             prevForm = [{type: type}]
         }
@@ -137,7 +133,6 @@ function MainForm(props){
     }
 
     const updatePropertyComponent = (index, newProperty) => {
-        console.log(newProperty)
         let newFormStruct = [...formStruct];
         newFormStruct[index].property = newProperty;
         setFormStruct(newFormStruct);
@@ -160,23 +155,21 @@ function MainForm(props){
         //     console.log(e.clientX, e.clientY)
         // });
         document.getElementById("main-form").addEventListener('dragover', (e) => {
-            console.log("sdfdsfsdfsdfsf")
             componentDropPosition.current = {
                 x: e.clientX,
                 y: e.clientY
             }
         });
-        document.getElementById("main-form").addEventListener('onScroll', (e) => {
-            console.log("askdjajkdasjkd")
+        // document.getElementById("main-form").addEventListener('onScroll', (e) => {
+        //     console.log("askdjajkdasjkd")
             
-        });
-        document.body.addEventListener('onscroll', (e) => {
-            refUpdatePositionComponent(componentArray.current)
-        });      
+        // });
+        // document.body.addEventListener('onscroll', (e) => {
+        //     refUpdatePositionComponent(componentArray.current)
+        // });      
     }, [])
 
     useEffect(() => {
-        console.log(formStruct, "day la form")
         if (formStruct){
             refFormStruct.current = [...formStruct] 
             setTimeout(() => {                
@@ -295,6 +288,7 @@ function MainForm(props){
                 {
                     elementChose && elementChose.type === 'radiobutton' &&
                     <RadioButtonConfig 
+                        property={formStruct?formStruct[1].property:null}
                         updatePropertyComponent={(newProperty) => updatePropertyComponent(1, newProperty)}
                     />
                 }
