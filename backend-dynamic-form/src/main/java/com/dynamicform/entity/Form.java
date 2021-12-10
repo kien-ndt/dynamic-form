@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "form")
 public class Form {
     @Id
-    private long id;
+    private String id;
 
     private String name;
 }
