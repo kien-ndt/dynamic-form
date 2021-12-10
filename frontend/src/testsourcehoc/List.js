@@ -10,8 +10,8 @@ const List = () => {
       price: "3.99",
       position: 0,
       id: 0,
-      img:
-        "https://cdn.pixabay.com/photo/2015/09/05/01/05/french-fries-923687_1280.jpg",
+      description: 
+      "__________________________________________________________________________________________"
     },
     {
       name: "Bacon Cheese Burger",
@@ -20,8 +20,8 @@ const List = () => {
       price: "17.99",
       position: 1,
       id: 1,
-      img:
-        "https://cdn.pixabay.com/photo/2017/01/13/03/02/burgers-1976198_1280.jpg",
+      description: 
+      "__________________________________________________________________________________________"
     },
     {
       name: "Fried Chicken",
@@ -29,8 +29,8 @@ const List = () => {
       price: "7.99",
       position: 2,
       id: 2,
-      img:
-        "https://cdn.pixabay.com/photo/2015/03/26/09/39/fried-chicken-690039_1280.jpg",
+      description: 
+      "__________________________________________________________________________________________"
     },
     {
       name: "Pastor Tacos",
@@ -38,8 +38,8 @@ const List = () => {
       price: "8.99",
       position: 3,
       id: 3,
-      img:
-        "https://cdn.pixabay.com/photo/2019/09/26/04/01/tacos-pastor-4505032_1280.jpg",
+      description: 
+      "__________________________________________________________________________________________"
     },
     {
       name: "Tuna Tartar Crispy Tacos",
@@ -47,8 +47,8 @@ const List = () => {
       price: "13.99",
       position: 4,
       id: 4,
-      img:
-        "https://cdn.pixabay.com/photo/2014/06/15/04/35/tacos-369179_1280.jpg",
+      description: 
+      "__________________________________________________________________________________________"
     },
     {
       name: "Fiesta Quesadilla",
@@ -57,8 +57,8 @@ const List = () => {
       price: "3.99",
       position: 5,
       id: 5,
-      img:
-        "https://cdn.pixabay.com/photo/2016/10/21/23/54/quesadilla-1759460_1280.jpg",
+      description: 
+      "__________________________________________________________________________________________"
     },
   ]);
 
