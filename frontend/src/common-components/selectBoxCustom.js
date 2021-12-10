@@ -1,0 +1,51 @@
+import React, { useEffect, useState } from 'react';
+
+import { Box, FormGroup, FormControlLabel, TextField } from '@mui/material';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import NativeSelect from '@mui/material/NativeSelect';
+
+function SelectBoxCustom(props){
+    let {property, onChoseOneComponent} = props;
+
+    const [state, setState] = useState()
+
+    const defaultValue = {
+        label: "label",
+    }
+
+    useEffect(() => {
+        let value = defaultValue;
+        if (property){
+            if (property.label){
+                value.label = property.label
+            }
+        }
+        setState(value)
+    }, [property])
+
+    return(
+        <React.Fragment>            
+            <Box sx={{ minWidth: 120 }}>
+            <FormControl fullWidth>
+                <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                Age
+                </InputLabel>
+                <NativeSelect
+                defaultValue={20}
+                inputProps={{
+                    name: 'age',
+                    id: 'uncontrolled-native',
+                }}
+                >
+                <option value={10}>Ten</option>
+                <option value={20}>Twenty</option>
+                <option value={30}>Thirty</option>
+                </NativeSelect>
+            </FormControl>
+            </Box>
+        </React.Fragment>
+    )
+}
+
+export {SelectBoxCustom as SelectBox}

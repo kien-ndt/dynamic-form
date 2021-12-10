@@ -4,6 +4,8 @@ import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import ShortTextIcon from '@mui/icons-material/ShortText';
 import typeInput from "./typeInput";
 import React, { useEffect, useRef, useState } from "react";
+import AllInboxIcon from '@mui/icons-material/AllInbox';
+import CalendarViewMonthIcon from '@mui/icons-material/CalendarViewMonth';
 
 function TestDrag(props) {
     let {name} = props
@@ -22,6 +24,12 @@ function TestDrag(props) {
                     break;
                 case typeInput.TextField: 
                     icon = <ShortTextIcon fontSize="large" color="primary"/>
+                    break;
+                case typeInput.SelectBox:
+                    icon = <AllInboxIcon fontSize="large" color="primary"/>
+                    break;
+                case typeInput.Datetime:
+                    icon = <CalendarViewMonthIcon fontSize="large" color="primary"/>
                     break;
             }
             setProperties({

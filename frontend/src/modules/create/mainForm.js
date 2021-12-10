@@ -14,12 +14,14 @@ import TestDrag from "./testdrag";
 import typeInput from "./typeInput";
 import { useDrop } from "react-dnd"
 import DatetimeConfig from "../../config-common-components/datetimeConfig";
+import SelectBoxConfig from "../../config-common-components/selectBoxConfig";
+import { SelectBox } from "../../common-components/selectBoxCustom";
 
 function MainForm(props){
 
     const [formStruct, setFormStruct] = useState([
         {
-            type: typeInput.Datetime,
+            type: typeInput.SelectBox,
             property:{
                 label: "ví dụ 1",
                 gridWidth: 4
@@ -213,6 +215,16 @@ function MainForm(props){
                             name={typeInput.TextField}
                         />
                     </Grid>
+                    <Grid item xs={2}>
+                        <TestDrag 
+                            name={typeInput.SelectBox}
+                        />
+                    </Grid>
+                    <Grid item xs={2}>
+                        <TestDrag 
+                            name={typeInput.Datetime}
+                        />
+                    </Grid>
                 </Grid>
             </Box>
 
@@ -296,6 +308,16 @@ function MainForm(props){
                         updatePropertyComponent={(newProperty) => updatePropertyComponent(elementChose.index, newProperty)}
                     />
                 }
+
+{
+                    elementChose && elementChose.type === typeInput.SelectBox &&
+                    <SelectBoxConfig 
+                        property={formStruct?formStruct[elementChose.index].property:null}
+                        updatePropertyComponent={(newProperty) => updatePropertyComponent(elementChose.index, newProperty)}
+                    />
+                }
+
+
             </Box>
         </Box>
         
@@ -372,6 +394,15 @@ const SortableItem = SortableElement((props) =>{
                     onChoseOneComponent={(typeComponent)=>onChoseOneComponent(index1, typeComponent)}
                 />
             }
+            {
+                item.type===typeInput.SelectBox &&
+                <SelectBox
+                    isEdit={true}
+                    property={item.property}
+                    onChoseOneComponent={(typeComponent)=>onChoseOneComponent(index1, typeComponent)}
+                />
+            }
+
         </Grid> 
     )
 });
