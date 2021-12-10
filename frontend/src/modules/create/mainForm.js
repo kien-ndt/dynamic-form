@@ -2,31 +2,31 @@ import React, { useEffect, useRef, useState } from "react"
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { CheckBox } from "../../common-components/checkbox";
+import { CheckBox } from "../../common-components/checkBoxCustom";
 import CheckBoxConfig from "../../config-common-components/checkBoxConfig"
 import RadioButtonConfig from "../../config-common-components/radioButtonConfig";
 import TextFieldConfig from "../../config-common-components/textFieldConfig";
-import { RadioButton } from "../../common-components/radiobutton";
-import { TextField } from "../../common-components/textfield";
+import { RadioButton } from "../../common-components/radioButtonCustom";
+import { TextField } from "../../common-components/textFieldCustom";
+import { DateTime } from "../../common-components/datetimeCustom";
 import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
 import TestDrag from "./testdrag";
 import typeInput from "./typeInput";
 import { useDrop } from "react-dnd"
-
+import DatetimeConfig from "../../config-common-components/datetimeConfig";
 
 function MainForm(props){
 
     const [formStruct, setFormStruct] = useState([
         {
-            type: typeInput.TextField,
+            type: typeInput.Datetime,
             property:{
                 label: "ví dụ 1",
-                content: ["lựa chọn 1", "lựa chọn 2"],
                 gridWidth: 4
             }
         },
         {
-            type: typeInput.RadioButton,
+            type: typeInput.TextField,
             property:{
                 label: "ví dụ 2",
                 content: ["lựa chọn 1", "lựa chọn 2 saklfjsklfsjf klsiougs kjweursdf"],
@@ -359,6 +359,14 @@ const SortableItem = SortableElement((props) =>{
             {
                 item.type===typeInput.TextField &&
                 <TextField
+                    isEdit={true}
+                    property={item.property}
+                    onChoseOneComponent={(typeComponent)=>onChoseOneComponent(index1, typeComponent)}
+                />
+            }
+            {
+                item.type===typeInput.Datetime &&
+                <DateTime
                     isEdit={true}
                     property={item.property}
                     onChoseOneComponent={(typeComponent)=>onChoseOneComponent(index1, typeComponent)}
