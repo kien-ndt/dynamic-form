@@ -5,5 +5,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IFormRepository extends MongoRepository<Form, Long> {
+public interface IFormRepository extends MongoRepository<Form, String> {
 }
