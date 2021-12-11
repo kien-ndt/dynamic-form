@@ -1,11 +1,29 @@
 import { Box, FormGroup, FormControlLabel, Checkbox, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import GridWidth from './common/grid-width';
+import * as React from 'react';
+
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 function CheckBoxConfig(props){
+    const defaultColor = {
+        kolor: "black"
+    }
 
     const {property, updatePropertyComponent} = props
 
+    const [kolor, setColor] = useState({
+        kolor: property?property.kolor:defaultColor.kolor,
+    });
+
+    const handleChange = (event) => {
+        setColor(event.target.value);
+    };
+
+    
     const defaultValue = {
         label: "label checkbox",
         content: ["Choice 1"]
@@ -30,13 +48,26 @@ function CheckBoxConfig(props){
         content: property?convertArrayToStringElementToRow(property.content):convertArrayToStringElementToRow(defaultValue.content),
         gridWidth: property?property.gridWidth:4
     });
+
+
     
     const onLabelChange = (e) => {
+        
         let value = e?.target?.value;
         setState({
             ...state,
             label: value
         })
+    }
+
+    const onColorChange = (e) => {
+        
+        let value = e?.target?.value;
+        setColor({
+            ...kolor,
+            kolor: value
+        })
+
     }
 
     const onContentChange = (e) => {
@@ -62,12 +93,20 @@ function CheckBoxConfig(props){
 
 
     useEffect(() => {
+        console.log("da update mau")
         updatePropertyComponent({
             label: state.label,
             content: convertStringToArrayRowToElement(state.content),
             gridWidth: state.gridWidth
         })
     }, [state])
+    useEffect(() => {
+        
+        updatePropertyComponent({
+            kolor: state.kolor,
+            
+        })
+    }, [kolor])
 
 
     return(
@@ -90,6 +129,25 @@ function CheckBoxConfig(props){
                 value={state.content}
                 onChange={(e) => onContentChange(e)}
             />
+
+            <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Color</InputLabel>
+                <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                kolor={kolor}
+                label="Color"
+                onChange={handleChange}
+                onChange={(e) => onColorChange(e)}
+                >
+                <MenuItem kolor={"black"}>Black</MenuItem>
+                <MenuItem kolor={"red"}>Red</MenuItem>
+                <MenuItem kolor={"yellow"}>Yellow</MenuItem>
+                <MenuItem kolor={"blue"}>Blue</MenuItem>
+                <MenuItem kolor={"green"}>Green</MenuItem>
+                <MenuItem kolor={"purple"}>Purple</MenuItem>
+                </Select>
+            </FormControl>
             <GridWidth
                 gridWidth={state?.gridWidth}
                 onGridWidthChange={(gridWidth) => {setState({...state, gridWidth: gridWidth})}}
