@@ -19,6 +19,8 @@ import SelectBoxConfig from "../../config-common-components/selectBoxConfig";
 import { SelectBox } from "../../common-components/selectBoxCustom";
 import TitleFormConfig from "../../config-common-components/titleFormConfig";
 import { TitleForm } from "../../common-components/titleFormCustom";
+import BlankConfig from "../../config-common-components/blankConfig";
+import { Blank } from "../../common-components/blankCustom";
 function MainForm(props){
 
     const [tieude, settieude] = useState("")
@@ -183,12 +185,14 @@ function MainForm(props){
                 refUpdateComponent(componentArray.current)
             },100)           
         }
-        console.log(formStruct)
+        
     }, [formStruct])
 
     return(
         
         <Box
+
+        
             sx={{
                 width: "95vw",
                 height: "100vh",
@@ -233,6 +237,11 @@ function MainForm(props){
                             name={typeInput.TitleForm}
                         />
                     </ListItem>          
+                    <ListItem disablePadding>                        
+                        <TestDrag 
+                            name={typeInput.Blank}
+                        />
+                    </ListItem>   
                 </List>               
             </Box>
 
@@ -256,8 +265,7 @@ function MainForm(props){
             >  
             
 
-            
-
+                
                 <Paper 
                     id="main-form"
                     ref={drop}
@@ -339,6 +347,13 @@ function MainForm(props){
                  {
                     elementChose && elementChose.type === typeInput.TitleForm &&
                     <TitleFormConfig 
+                        property={formStruct?formStruct[elementChose.index].property:null}
+                        updatePropertyComponent={(newProperty) => updatePropertyComponent(elementChose.index, newProperty)}
+                    />
+                }
+                {
+                    elementChose && elementChose.type === typeInput.Blank &&
+                    <BlankConfig 
                         property={formStruct?formStruct[elementChose.index].property:null}
                         updatePropertyComponent={(newProperty) => updatePropertyComponent(elementChose.index, newProperty)}
                     />

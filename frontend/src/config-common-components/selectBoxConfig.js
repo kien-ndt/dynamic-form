@@ -7,23 +7,26 @@ function SelectBoxConfig(props){
     const {property, updatePropertyComponent} = props
 
     const [state, setState] = useState({
-        label: property.label,
-        gridWidth: property.gridWidth
+        
     });
     
+
     const onLabelChange = (e) => {
+        
         let value = e?.target?.value;
         setState({
             ...state,
             label: value
         })
     }
-
     useEffect(() => {
+        
         updatePropertyComponent({
-            label: state.label,
-            gridWidth: state.gridWidth
+            
+            label: state.label?state.label:"",
+            gridWidth: state.gridWidth?state.gridWidth:4
         })
+        
     }, [state])
 
 
