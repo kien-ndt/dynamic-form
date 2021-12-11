@@ -22,18 +22,21 @@ import SelectBoxConfig from "../../config-common-components/selectBoxConfig";
 import { SelectBox } from "../../common-components/selectBoxCustom";
 import TitleFormConfig from "../../config-common-components/titleFormConfig";
 import { TitleForm } from "../../common-components/titleFormCustom";
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 
 import { getAllForms, createForm } from "../../helper/formRequest";
 function MainForm(props){
 
+    const {backCreateEdit} = props;
+
     const [tieude, settieude] = useState("")
     const [formProperty, setFormProperty] = useState({
-        width: "",
-        height: "",
-        name: "Đặt thử tên form",
-        id: ""
+        name: props.form?props.form.name:"Tên form",
+        id: props.form?props.form.id:(new Date).toISOString()
     })
-    const [formStruct, setFormStruct] = useState([     
+    const [formStruct, setFormStruct] = useState(
+        props.formElement?props.formElement:[]
+        // [     
 
         // {
         //     type: typeInput.SelectBox,
@@ -49,7 +52,8 @@ function MainForm(props){
         //         content: ["lựa chọn 1", "lựa chọn 2 saklfjsklfsjf klsiougs kjweursdf"],
         //     }
         // },
-    ])
+    // ]
+    )
 
     const [elementChose, setElementChose] = useState({
         index: null,
@@ -162,7 +166,7 @@ function MainForm(props){
 
     const onSaveForm = () => {
         // console.log(formStruct)
-        createForm({id: (new Date).toISOString(), formElement: formStruct})
+        createForm({id: formProperty.id, name: formProperty.name, formElement: formStruct})
         // getAllForms().then((data) => console.log(JSON.stringify(data.data) + " askdfksdksdfkjsd"));
     }
 
@@ -207,9 +211,12 @@ function MainForm(props){
             }}
         >
         <Paper style={{height: "3em", display: "flex", alignItems: "center", justifyContent: "space-between", paddingLeft: "1em", paddingRight: "1em"}}>
-            <div>
-                asdfsadf
+            <div style={{display: "flex", alignItems: "center"}}>
+                {backCreateEdit &&
+                <KeyboardBackspaceIcon onClick={backCreateEdit}/>
+                }
             </div>
+            <div>{formProperty?.name}</div>
             <div>
                 <Fab size="small" color="primary" aria-label="add" style={{marginLeft: "5px", marginRight: "5px"}}>
                     <VisibilityIcon />
@@ -421,7 +428,8 @@ const SortableItem = SortableElement((props) =>{
     return(
         <Grid 
             item xs={item?.property?.gridWidth?item.property.gridWidth:4} md={item?.property?.gridWidth?item.property.gridWidth:4} 
-            ref={(element) => refUpdateComponent(element, index1)}     
+            ref={(element) => refUpdateComponent(element, index1)}   
+            sx={{zIndex: 2000000000}}  
             // style={{
             //     border: "1px solid blue",
             //     boxSizing: "border-box"

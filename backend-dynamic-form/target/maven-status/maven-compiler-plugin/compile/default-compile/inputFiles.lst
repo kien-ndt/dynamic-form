@@ -3,3 +3,5 @@ D:\Project\Javascript\dynamic-form\backend-dynamic-form\src\main\java\com\dynami
 D:\Project\Javascript\dynamic-form\backend-dynamic-form\src\main\java\com\dynamicform\ServerDynamicForm.java
 D:\Project\Javascript\dynamic-form\backend-dynamic-form\src\main\java\com\dynamicform\service\DynamicFormCRUDService.java
 D:\Project\Javascript\dynamic-form\backend-dynamic-form\src\main\java\com\dynamicform\entity\Form.java
+D:\Project\Javascript\dynamic-form\backend-dynamic-form\src\main\java\com\dynamicform\entity\FormElement.java
+D:\Project\Javascript\dynamic-form\backend-dynamic-form\src\main\java\com\dynamicform\entity\FormElementProperty.java

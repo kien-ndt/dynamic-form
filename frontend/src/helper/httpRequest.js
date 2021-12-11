@@ -25,7 +25,7 @@ async function sendRequest({path, method, data, showNotificationSuccess, showNot
         if (showNotificationSuccess){
             NotificationManager.success("Done", " hihihaha", 5000)
         }
-        return response;
+        return response.data;            
     }).catch((e) => {
         hideLoadingNotification();   
         if (showNotificationFailue){

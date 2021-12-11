@@ -15,5 +15,7 @@ public class Form {
     @Id
     private String id;
 
+    private String name;
+
     private List<FormElement> formElement;
 }
