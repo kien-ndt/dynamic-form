@@ -21,17 +21,27 @@ public class FormController {
         return crudService.getAllForms();
     }
 
+    @GetMapping("/{id}")
+    @ResponseBody
+    public Form getFormById(@PathVariable String id){
+        return crudService.getFormById(id);
+    }
+
     @PostMapping("/")
     @ResponseBody
     public Form createForm(@RequestBody Form form){
         return crudService.createForm(form);
     }
 
-//    @DeleteMapping("/")
-//    @ResponseBody
-//    public String deleteForm(@RequestParam String id){
-//        System.out.println(id);
-////        crudService.deleteForm(id);
-//        return "da xoa nhe";
-//    }
+    @PutMapping("/")
+    public Form updateForm(@RequestBody Form form) {
+        return crudService.updateFrom(form);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseBody
+    public String deleteForm(@PathVariable String id){
+        crudService.deleteForm(id);
+        return "da xoa nhe";
+    }
 }

@@ -20,25 +20,25 @@ function TestDrag(props) {
             let icon;
             switch(name){
                 case typeInput.CheckBox: 
-                    icon = <CheckBoxIcon fontSize="large" color="primary"/> 
+                    icon = <CheckBoxIcon fontSize="medium" color="primary"/> 
                     break;
                 case typeInput.RadioButton: 
-                    icon = <RadioButtonCheckedIcon fontSize="large" color="primary"/>
+                    icon = <RadioButtonCheckedIcon fontSize="medium" color="primary"/>
                     break;
                 case typeInput.TextField: 
-                    icon = <ShortTextIcon fontSize="large" color="primary"/>
+                    icon = <ShortTextIcon fontSize="medium" color="primary"/>
                     break;
                 case typeInput.SelectBox:
-                    icon = <AllInboxIcon fontSize="large" color="primary"/>
+                    icon = <AllInboxIcon fontSize="medium" color="primary"/>
                     break;
                 case typeInput.Datetime:
-                    icon = <CalendarViewMonthIcon fontSize="large" color="primary"/>
+                    icon = <CalendarViewMonthIcon fontSize="medium" color="primary"/>
                     break;
                 case typeInput.Datetime:
-                    icon = <CalendarViewMonthIcon fontSize="large" color="primary"/>
+                    icon = <CalendarViewMonthIcon fontSize="medium" color="primary"/>
                     break;
                 case typeInput.TitleForm:
-                    icon = <Title fontSize="large" color="primary"/>
+                    icon = <Title fontSize="medium" color="primary"/>
                     break;
             }
             setProperties({
@@ -68,7 +68,7 @@ function TestDrag(props) {
                 {properties?.icon}
             </ListItemIcon>
             
-            <ListItemText primary={name} />
+            <ListItemText primary={name}/>
         </ListItemButton>
         // <div ref={drag} style={{cursor: "pointer"}}>
         //     {properties?.icon}

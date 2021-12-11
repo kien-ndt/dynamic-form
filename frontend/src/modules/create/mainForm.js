@@ -2,7 +2,10 @@ import React, { useEffect, useRef, useState } from "react"
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import {List, ListItem, ListItemButton, ListItemText, ListItemIcon} from '@mui/material';
+import {List, ListItem, ListItemButton, ListItemText, ListItemIcon, Fab } from '@mui/material';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import DoneAllIcon from '@mui/icons-material/DoneAll';
+import SettingsIcon from '@mui/icons-material/Settings';
 import { CheckBox } from "../../common-components/checkBoxCustom";
 import CheckBoxConfig from "../../config-common-components/checkBoxConfig"
 import RadioButtonConfig from "../../config-common-components/radioButtonConfig";
@@ -19,13 +22,18 @@ import SelectBoxConfig from "../../config-common-components/selectBoxConfig";
 import { SelectBox } from "../../common-components/selectBoxCustom";
 import TitleFormConfig from "../../config-common-components/titleFormConfig";
 import { TitleForm } from "../../common-components/titleFormCustom";
+
+import { getAllForms } from "../../helper/formRequest";
 function MainForm(props){
 
     const [tieude, settieude] = useState("")
-
-    const [formStruct, setFormStruct] = useState([
-
-       
+    const [formProperty, setFormProperty] = useState({
+        width: "",
+        height: "",
+        name: "Đặt thử tên form",
+        id: ""
+    })
+    const [formStruct, setFormStruct] = useState([     
 
         // {
         //     type: typeInput.SelectBox,
@@ -152,6 +160,10 @@ function MainForm(props){
         })
     }
 
+    const onSaveForm = () => {
+        getAllForms().then((data) => console.log(JSON.stringify(data.data) + " askdfksdksdfkjsd"));
+    }
+
     useEffect(() => {   
             //  getElementById("main-form")
         // document.addEventListener('mousemove', (e) => {
@@ -187,19 +199,40 @@ function MainForm(props){
     }, [formStruct])
 
     return(
+        <Box 
+            sx={{
+                height: "100vh"
+            }}
+        >
+        <Paper style={{height: "3em", display: "flex", alignItems: "center", justifyContent: "space-between", paddingLeft: "1em", paddingRight: "1em"}}>
+            <div>
+                asdfsadf
+            </div>
+            <div>
+                <Fab size="small" color="primary" aria-label="add" style={{marginLeft: "5px", marginRight: "5px"}}>
+                    <VisibilityIcon />
+                </Fab>
+                <Fab size="small" color="success" aria-label="add" style={{marginLeft: "5px", marginRight: "5px"}}>
+                    <SettingsIcon />
+                </Fab>
+                <Fab size="small" color="secondary" aria-label="add" style={{marginLeft: "5px", marginRight: "5px"}} 
+                        onClick={onSaveForm}>
+                    <DoneAllIcon />
+                </Fab>
+            </div>
+        </Paper>
         
         <Box
             sx={{
-                width: "95vw",
-                height: "100vh",
+                width: "100vw",
+                height: "calc(100vh - 3em);",
                 display: 'flex'
             }}>  
 
             {/* Box lấy các thành phần */}
             <Box                
-                sx={{
-                    
-                    height: "100vh"                
+                sx={{                    
+                    height: "100%"                
                 }}
             >
                 <List>                    
@@ -240,7 +273,7 @@ function MainForm(props){
             <Box
                 sx={{
                 width: "75vw",
-                height: "100vh",
+                height: "100%",
                 overflow: "scroll",
                 display: 'block',
                 backgroundColor: 'primary.dark',
@@ -348,6 +381,7 @@ function MainForm(props){
             </Box>
         </Box>
         
+        </Box>
     
     )
 }
