@@ -1,30 +1,43 @@
 import React, { useEffect, useState } from 'react';
 
-import { Box, FormGroup, FormControlLabel, TextField } from '@mui/material';
-
+import { Box} from '@mui/material';
+import TitleFormConfig from '../config-common-components/titleFormConfig';
 function TitleFormCustom(props){
     let {property, onChoseOneComponent} = props;
 
     const [state, setState] = useState()
+    const [labelform, setLabelform] = useState()
 
     const defaultValue = {
-        
+        label: "label",
     }
 
+    useEffect(() => {
+        
+        let value = defaultValue;
+        if (property){
+            if (property.label){
+                value.label = property.label
+            }
+        }
+        setState(value);
+        setLabelform({
+            ...labelform,
+            labelform: value})
     
+            
+        }, [property])
 
     return(
         <React.Fragment>            
             <Box
-                onClick={()=>onChoseOneComponent("titleform")}
+                onClick={()=>onChoseOneComponent("textfield")}
             >
-                <TextField 
-                    id="titleform-label" 
-                    variant="standard" 
-                    InputLabelProps={{ shrink: true }}
-                    // value={state?(state.label?state.label:""):""}
-                    // onChange={(e) => onLabelChange(e)}
-                />
+                <p>
+                {state?state.label:"abc"}
+            
+                </p>
+                
             </Box>
         </React.Fragment>
     )
