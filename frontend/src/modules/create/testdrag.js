@@ -34,9 +34,6 @@ function TestDrag(props) {
                 case typeInput.Datetime:
                     icon = <CalendarViewMonthIcon fontSize="medium" color="primary"/>
                     break;
-                case typeInput.Datetime:
-                    icon = <CalendarViewMonthIcon fontSize="medium" color="primary"/>
-                    break;
                 case typeInput.TitleForm:
                     icon = <Title fontSize="medium" color="primary"/>
                     break;

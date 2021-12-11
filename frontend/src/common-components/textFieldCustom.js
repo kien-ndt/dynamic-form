@@ -27,6 +27,7 @@ function TextFieldCustom(props){
                 onClick={()=>onChoseOneComponent("textfield")}
             >
                 <TextField 
+                    fullWidth
                     id="textfield-label" 
                     label={state?state.label:""}
                     variant="standard" 

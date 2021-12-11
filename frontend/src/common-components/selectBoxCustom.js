@@ -12,6 +12,7 @@ function SelectBoxCustom(props){
 
     const defaultValue = {
         label: "label",
+        content: ["Choice 1"]
     }
 
     useEffect(() => {
@@ -20,6 +21,9 @@ function SelectBoxCustom(props){
             if (property.label){
                 value.label = property.label
             }
+            if (property.content && property.content.length > 0){
+                value.content = property.content
+            }
         }
         setState(value)
     }, [property])
@@ -27,22 +31,24 @@ function SelectBoxCustom(props){
     return(
         <React.Fragment>   
                      
-            <Box sx={{ minWidth: 10 }}>
-            {()=>onChoseOneComponent("textfield")}
+            <Box sx={{ minWidth: 10 }} onClick={()=>onChoseOneComponent("selectbox")}>
             <FormControl fullWidth>
                 <InputLabel variant="standard" htmlFor="uncontrolled-native">
-                Age
+                {state?.label}
                 </InputLabel>
                 <NativeSelect
-                defaultValue={20}
+                defaultValue={1}
                 inputProps={{
                     name: 'age',
                     id: 'uncontrolled-native',
                 }}
                 >
-                <option value={10}>Ten</option>
-                <option value={20}>Twenty</option>
-                <option value={30}>Thirty</option>
+                    {
+                        state && state.content && state.content.length > 0 &&
+                        state.content.map((item, index) => (
+                            <option value={index}>{item}</option>
+                        ))
+                    }
                 </NativeSelect>
             </FormControl>
             </Box>
