@@ -34,11 +34,11 @@ function CheckBoxCustom(props){
                 onClick={() => onChoseOneComponent("checkbox")}
             >
                 <label>{state?state.label:"label"}</label>
-                <FormGroup>
+                <FormGroup style={{display: "flex", flexDirection:"row"}}>
                     {
                         state && state.content && state.content.length > 0 &&
                         state.content.map((item, index) => {
-                            return <FormControlLabel 
+                            return <FormControlLabel style={{color: "red"}}
                             key={"formcontroll" + index}                            
                             value={item}
                             control={<Checkbox key={"checkbox" + index}/>} label={item} />

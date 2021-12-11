@@ -2,7 +2,10 @@ import React, { useEffect, useRef, useState } from "react"
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import {List, ListItem, ListItemButton, ListItemText, ListItemIcon} from '@mui/material';
+import {List, ListItem, ListItemButton, ListItemText, ListItemIcon, Fab } from '@mui/material';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import DoneAllIcon from '@mui/icons-material/DoneAll';
+import SettingsIcon from '@mui/icons-material/Settings';
 import { CheckBox } from "../../common-components/checkBoxCustom";
 import CheckBoxConfig from "../../config-common-components/checkBoxConfig"
 import RadioButtonConfig from "../../config-common-components/radioButtonConfig";
@@ -19,15 +22,21 @@ import SelectBoxConfig from "../../config-common-components/selectBoxConfig";
 import { SelectBox } from "../../common-components/selectBoxCustom";
 import TitleFormConfig from "../../config-common-components/titleFormConfig";
 import { TitleForm } from "../../common-components/titleFormCustom";
-import BlankConfig from "../../config-common-components/blankConfig";
-import { Blank } from "../../common-components/blankCustom";
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+
+import { getAllForms, createForm } from "../../helper/formRequest";
 function MainForm(props){
 
+    const {backCreateEdit} = props;
+
     const [tieude, settieude] = useState("")
-
-    const [formStruct, setFormStruct] = useState([
-
-       
+    const [formProperty, setFormProperty] = useState({
+        name: props.form?props.form.name:"Tên form",
+        id: props.form?props.form.id:(new Date).toISOString()
+    })
+    const [formStruct, setFormStruct] = useState(
+        props.formElement?props.formElement:[]
+        // [     
 
         // {
         //     type: typeInput.SelectBox,
@@ -43,7 +52,8 @@ function MainForm(props){
         //         content: ["lựa chọn 1", "lựa chọn 2 saklfjsklfsjf klsiougs kjweursdf"],
         //     }
         // },
-    ])
+    // ]
+    )
 
     const [elementChose, setElementChose] = useState({
         index: null,
@@ -154,6 +164,12 @@ function MainForm(props){
         })
     }
 
+    const onSaveForm = () => {
+        // console.log(formStruct)
+        createForm({id: formProperty.id, name: formProperty.name, formElement: formStruct})
+        // getAllForms().then((data) => console.log(JSON.stringify(data.data) + " askdfksdksdfkjsd"));
+    }
+
     useEffect(() => {   
             //  getElementById("main-form")
         // document.addEventListener('mousemove', (e) => {
@@ -185,25 +201,47 @@ function MainForm(props){
                 refUpdateComponent(componentArray.current)
             },100)           
         }
-        
+        console.log(formStruct)
     }, [formStruct])
 
     return(
+        <Box 
+            sx={{
+                height: "100vh"
+            }}
+        >
+        <Paper style={{height: "3em", display: "flex", alignItems: "center", justifyContent: "space-between", paddingLeft: "1em", paddingRight: "1em"}}>
+            <div style={{display: "flex", alignItems: "center"}}>
+                {backCreateEdit &&
+                <KeyboardBackspaceIcon onClick={backCreateEdit}/>
+                }
+            </div>
+            <div>{formProperty?.name}</div>
+            <div>
+                <Fab size="small" color="primary" aria-label="add" style={{marginLeft: "5px", marginRight: "5px"}}>
+                    <VisibilityIcon />
+                </Fab>
+                <Fab size="small" color="success" aria-label="add" style={{marginLeft: "5px", marginRight: "5px"}}>
+                    <SettingsIcon />
+                </Fab>
+                <Fab size="small" color="secondary" aria-label="add" style={{marginLeft: "5px", marginRight: "5px"}} 
+                        onClick={onSaveForm}>
+                    <DoneAllIcon />
+                </Fab>
+            </div>
+        </Paper>
         
         <Box
-
-        
             sx={{
-                width: "95vw",
-                height: "100vh",
+                width: "100vw",
+                height: "calc(100vh - 3em);",
                 display: 'flex'
             }}>  
 
             {/* Box lấy các thành phần */}
             <Box                
-                sx={{
-                    
-                    height: "100vh"                
+                sx={{                    
+                    height: "100%"                
                 }}
             >
                 <List>                    
@@ -237,11 +275,6 @@ function MainForm(props){
                             name={typeInput.TitleForm}
                         />
                     </ListItem>          
-                    <ListItem disablePadding>                        
-                        <TestDrag 
-                            name={typeInput.Blank}
-                        />
-                    </ListItem>   
                 </List>               
             </Box>
 
@@ -249,7 +282,7 @@ function MainForm(props){
             <Box
                 sx={{
                 width: "75vw",
-                height: "100vh",
+                height: "100%",
                 overflow: "scroll",
                 display: 'block',
                 backgroundColor: 'primary.dark',
@@ -265,7 +298,8 @@ function MainForm(props){
             >  
             
 
-                
+            
+
                 <Paper 
                     id="main-form"
                     ref={drop}
@@ -351,18 +385,12 @@ function MainForm(props){
                         updatePropertyComponent={(newProperty) => updatePropertyComponent(elementChose.index, newProperty)}
                     />
                 }
-                {
-                    elementChose && elementChose.type === typeInput.Blank &&
-                    <BlankConfig 
-                        property={formStruct?formStruct[elementChose.index].property:null}
-                        updatePropertyComponent={(newProperty) => updatePropertyComponent(elementChose.index, newProperty)}
-                    />
-                }
 
 
             </Box>
         </Box>
         
+        </Box>
     
     )
 }
@@ -400,7 +428,8 @@ const SortableItem = SortableElement((props) =>{
     return(
         <Grid 
             item xs={item?.property?.gridWidth?item.property.gridWidth:4} md={item?.property?.gridWidth?item.property.gridWidth:4} 
-            ref={(element) => refUpdateComponent(element, index1)}     
+            ref={(element) => refUpdateComponent(element, index1)}   
+            sx={{zIndex: 2000000000}}  
             // style={{
             //     border: "1px solid blue",
             //     boxSizing: "border-box"

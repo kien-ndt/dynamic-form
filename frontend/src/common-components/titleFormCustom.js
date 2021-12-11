@@ -33,7 +33,7 @@ function TitleFormCustom(props){
             <Box
                 onClick={()=>onChoseOneComponent("textfield")}
             >
-                <p>
+                <p style={{wordBreak: "break-all"}}>
                 {state?state.label:"abc"}
             
                 </p>
