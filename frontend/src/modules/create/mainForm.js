@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react"
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
+import {List, ListItem, ListItemButton, ListItemText, ListItemIcon} from '@mui/material';
 import { CheckBox } from "../../common-components/checkBoxCustom";
 import CheckBoxConfig from "../../config-common-components/checkBoxConfig"
 import RadioButtonConfig from "../../config-common-components/radioButtonConfig";
@@ -26,20 +27,20 @@ function MainForm(props){
 
        
 
-        {
-            type: typeInput.SelectBox,
-            property:{
-                label: "ví dụ 1",
-                gridWidth: 4
-            }
-        },
-        {
-            type: typeInput.TextField,
-            property:{
-                label: "ví dụ 2",
-                content: ["lựa chọn 1", "lựa chọn 2 saklfjsklfsjf klsiougs kjweursdf"],
-            }
-        },
+        // {
+        //     type: typeInput.SelectBox,
+        //     property:{
+        //         label: "ví dụ 1",
+        //         gridWidth: 4
+        //     }
+        // },
+        // {
+        //     type: typeInput.TextField,
+        //     property:{
+        //         label: "ví dụ 2",
+        //         content: ["lựa chọn 1", "lựa chọn 2 saklfjsklfsjf klsiougs kjweursdf"],
+        //     }
+        // },
     ])
 
     const [elementChose, setElementChose] = useState({
@@ -100,10 +101,7 @@ function MainForm(props){
         },
         collect: (monitor) => ({
         })
-    }))
-
-
-    
+    }))   
 
 
 
@@ -192,58 +190,50 @@ function MainForm(props){
         
         <Box
             sx={{
-                width: "100vw",
+                width: "95vw",
                 height: "100vh",
                 display: 'flex'
             }}>  
 
             {/* Box lấy các thành phần */}
-            <Box
-
-
-                
+            <Box                
                 sx={{
-                    width: "25vw",
+                    
                     height: "100vh"                
                 }}
             >
-                <Grid container spacing={2}
-                    sx={{
-                        border: "1px solid black"
-                    }}
-                >
-                    <Grid item xs={2}>
+                <List>                    
+                    <ListItem disablePadding>                        
                         <TestDrag 
                             name={typeInput.CheckBox}
                         />
-                    </Grid>
-                    <Grid item xs={2}>
+                    </ListItem>         
+                    <ListItem disablePadding>                        
                         <TestDrag 
                             name={typeInput.RadioButton}
                         />
-                    </Grid>
-                    <Grid item xs={2}>
+                    </ListItem>       
+                    <ListItem disablePadding>                        
                         <TestDrag 
                             name={typeInput.TextField}
                         />
-                    </Grid>
-                    <Grid item xs={2}>
-                        <TestDrag 
-                            name={typeInput.SelectBox}
-                        />
-                    </Grid>
-                    <Grid item xs={2}>
+                    </ListItem>       
+                    <ListItem disablePadding>                        
                         <TestDrag 
                             name={typeInput.Datetime}
                         />
-                    </Grid>
-                    <Grid item xs={2}>
+                    </ListItem>     
+                    <ListItem disablePadding>                        
+                        <TestDrag 
+                            name={typeInput.SelectBox}
+                        />
+                    </ListItem>  
+                    <ListItem disablePadding>                        
                         <TestDrag 
                             name={typeInput.TitleForm}
                         />
-                    </Grid>
-
-                </Grid>
+                    </ListItem>          
+                </List>               
             </Box>
 
             {/* Box giao diện edit */}
@@ -269,15 +259,11 @@ function MainForm(props){
             
 
                 <Paper 
-
-
-
-                    
                     id="main-form"
                     ref={drop}
                     elevation={3}
                     sx={{
-                        width: "100vw",
+                        width: "60vw",
                         height: "fit-content",
                         // height: "200vh",
                         padding: "1cm",
@@ -303,11 +289,6 @@ function MainForm(props){
                         refUpdateComponent={refUpdateComponent}
                     />
 
-                </Paper>
-                
-                <Paper>
-
-                        Đây là khoàng trắng
                 </Paper>
 
             </Box>
@@ -378,7 +359,9 @@ export default MainForm
 const SortableList = SortableContainer((props) => {
     let {formStruct, typeInput, onChoseOneComponent, refUpdateComponent } = props
     return (        
-        <Grid container spacing={1} style={{border: "2px solid green"}}>
+        <Grid container spacing={1} 
+        // style={{border: "2px solid green"}}
+        >
         {
             formStruct && formStruct.length>0 &&
             formStruct.map((item, index) => (  
@@ -403,10 +386,10 @@ const SortableItem = SortableElement((props) =>{
         <Grid 
             item xs={item?.property?.gridWidth?item.property.gridWidth:4} md={item?.property?.gridWidth?item.property.gridWidth:4} 
             ref={(element) => refUpdateComponent(element, index1)}     
-            style={{
-                border: "1px solid blue",
-                boxSizing: "border-box"
-            }}
+            // style={{
+            //     border: "1px solid blue",
+            //     boxSizing: "border-box"
+            // }}
         >
             {
                 item.type===typeInput.CheckBox &&

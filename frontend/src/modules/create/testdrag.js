@@ -8,6 +8,8 @@ import AllInboxIcon from '@mui/icons-material/AllInbox';
 import CalendarViewMonthIcon from '@mui/icons-material/CalendarViewMonth';
 import TitleIcon from '@mui/icons-material/Title';
 import Title from "@mui/icons-material/Title";
+
+import {ListItemButton, ListItemText, ListItemIcon} from '@mui/material';
 function TestDrag(props) {
     let {name} = props
 
@@ -58,9 +60,19 @@ function TestDrag(props) {
     }))
         
     return (
-        <div ref={drag} style={{cursor: "pointer"}}>
-            {properties?.icon}
-        </div>
+        
+        <ListItemButton ref={drag}>
+            
+            <ListItemIcon>    
+                
+                {properties?.icon}
+            </ListItemIcon>
+            
+            <ListItemText primary={name} />
+        </ListItemButton>
+        // <div ref={drag} style={{cursor: "pointer"}}>
+        //     {properties?.icon}
+        // </div>
         // <div style={{width: "15px", height:"15px", backgroundColor:"red", cursor: "pointer"}} ref={drag}>
 
         // </div>
