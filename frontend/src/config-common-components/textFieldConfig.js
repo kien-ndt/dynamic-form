@@ -6,9 +6,13 @@ function TextFieldConfig(props){
 
     const {property, updatePropertyComponent} = props
 
+    const defaultValue = {
+        label: "label",
+    }
+
     const [state, setState] = useState({
-        label: property.label,
-        gridWidth: property.gridWidth
+        label: property?property.label:defaultValue.label,
+        gridWidth: property?property.gridWidth:4
     });
     
     const onLabelChange = (e) => {

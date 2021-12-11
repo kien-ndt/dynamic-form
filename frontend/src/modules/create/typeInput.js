@@ -7,5 +7,4 @@ const typeInput = {
     SelectBox: "selectbox",
     TitleForm: "titleform"
 }
-
 export default typeInput

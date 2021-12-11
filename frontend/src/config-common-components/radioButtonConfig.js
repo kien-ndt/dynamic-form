@@ -6,6 +6,11 @@ function RadioButtonConfig(props){
 
     const {property, updatePropertyComponent} = props
     
+    const defaultValue = {
+        label: "label",
+        content: ["Choice 1"]
+    }
+
     const convertArrayToStringElementToRow = (arr) => {
         let strRes = ""
         if (arr && arr.length > 0){
@@ -21,9 +26,9 @@ function RadioButtonConfig(props){
     }
 
     const [state, setState] = useState({
-        label: property.label,
-        content: convertArrayToStringElementToRow(property.content),
-        gridWidth: property.gridWidth
+        label: property?property.label:defaultValue.label,
+        content: property?convertArrayToStringElementToRow(property.content):convertArrayToStringElementToRow(defaultValue.content),
+        gridWidth: property?property.gridWidth:4
     });
     
     const onLabelChange = (e) => {
