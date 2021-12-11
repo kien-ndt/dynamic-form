@@ -23,7 +23,7 @@ import { SelectBox } from "../../common-components/selectBoxCustom";
 import TitleFormConfig from "../../config-common-components/titleFormConfig";
 import { TitleForm } from "../../common-components/titleFormCustom";
 
-import { getAllForms } from "../../helper/formRequest";
+import { getAllForms, createForm } from "../../helper/formRequest";
 function MainForm(props){
 
     const [tieude, settieude] = useState("")
@@ -161,7 +161,9 @@ function MainForm(props){
     }
 
     const onSaveForm = () => {
-        getAllForms().then((data) => console.log(JSON.stringify(data.data) + " askdfksdksdfkjsd"));
+        // console.log(formStruct)
+        createForm({id: (new Date).toISOString(), formElement: formStruct})
+        // getAllForms().then((data) => console.log(JSON.stringify(data.data) + " askdfksdksdfkjsd"));
     }
 
     useEffect(() => {   
