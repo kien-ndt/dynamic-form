@@ -32,7 +32,7 @@ function DateTimeCustom(props){
             >
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DateTimePicker
-                    renderInput={(props) => <TextField {...props} label="kajsfhjksf" resize={{fontSize: "50px"}}/>}
+                    renderInput={(props) => <TextField {...props} label="Date" resize={{fontSize: "50px"}}/>}
                     // label="DateTimePicker"
                     
                     InputLabelProps={{ shrink: true }}

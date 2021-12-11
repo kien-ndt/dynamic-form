@@ -8,7 +8,8 @@ import AllInboxIcon from '@mui/icons-material/AllInbox';
 import CalendarViewMonthIcon from '@mui/icons-material/CalendarViewMonth';
 import TitleIcon from '@mui/icons-material/Title';
 import Title from "@mui/icons-material/Title";
-
+import { Blank } from "../../common-components/blankCustom";
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import {ListItemButton, ListItemText, ListItemIcon} from '@mui/material';
 function TestDrag(props) {
     let {name} = props
@@ -36,6 +37,9 @@ function TestDrag(props) {
                     break;
                 case typeInput.TitleForm:
                     icon = <Title fontSize="medium" color="primary"/>
+                    break;
+                case typeInput.Blank:
+                    icon = <CheckBoxOutlineBlankIcon fontSize="large" color="primary"/>
                     break;
             }
             setProperties({
