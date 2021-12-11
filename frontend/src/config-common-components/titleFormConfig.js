@@ -13,8 +13,7 @@ function TitleFormConfig(props){
 
     
     const [state, setState] = useState({
-        label: property?property.label:defaultValue.label,
-        gridWidth: property?property.gridWidth:4
+        
     });
 
     const [labelform, setLabelform] = useState(

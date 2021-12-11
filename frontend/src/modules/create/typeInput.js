@@ -1,3 +1,4 @@
+import { Blank } from "../../common-components/blankCustom"
 
 const typeInput = {
     CheckBox: "checkbox",
@@ -5,6 +6,7 @@ const typeInput = {
     TextField: "textfield",
     Datetime: "datetime",
     SelectBox: "selectbox",
-    TitleForm: "titleform"
+    TitleForm: "titleform",
+    Blank: "blank"
 }
 export default typeInput
