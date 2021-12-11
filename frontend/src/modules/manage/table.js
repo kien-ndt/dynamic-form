@@ -18,6 +18,7 @@ import PageviewIcon from '@mui/icons-material/Pageview';
 import { getAllForms, deleteForm } from '../../helper/formRequest';
 import { yellow, red, pink } from '@mui/material/colors';
 import MainForm from '../create/mainForm';
+import ViewForm from '../view/mainForm';
 
 
 import Dialog from '@mui/material/Dialog';
@@ -80,13 +81,26 @@ function TableManagement() {
 
     return (
         <React.Fragment>
-        <Dialog        
+        {/* <Dialog        
             fullScreen
             open={dialogStatus}
             onClose={handleCloseDialog}
             // TransitionComponent={Transition}
         >
             <MainForm formElement={formSelected?.formElement} 
+                        backCreateEdit={handleCloseDialog}
+                        form={formSelected}
+            />
+        </Dialog> */}
+        <Dialog    
+            fullScreen
+            open={dialogStatus}
+            onClose={handleCloseDialog}
+            // TransitionComponent={Transition}
+            minWidth={"fit-content"}
+            
+        >
+            <ViewForm formElement={formSelected?.formElement} 
                         backCreateEdit={handleCloseDialog}
                         form={formSelected}
             />
@@ -119,7 +133,7 @@ function TableManagement() {
                                 <TableCell align="left">{form.id}</TableCell>
                                 <TableCell align="left">{form.name}</TableCell>
                                 <TableCell align="right">
-                                    <PageviewIcon color='success'/>
+                                    <PageviewIcon color='success' onClick={() => onEdit(form)}/>
                                     <EditIcon sx={{ color: yellow[500] }} onClick={() => onEdit(form)}/>
                                     <ToggleOnIcon sx={{ color: pink[500] }}/>
                                     <DeleteIcon sx={{ color: red[500] }} onClick={() => onDelete(form)}/>

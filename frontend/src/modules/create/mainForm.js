@@ -24,6 +24,13 @@ import TitleFormConfig from "../../config-common-components/titleFormConfig";
 import { TitleForm } from "../../common-components/titleFormCustom";
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 
+import { TextField as TextFieldTemplate } from "@mui/material";
+
+import Dialog from '@mui/material/Dialog';
+import { DialogTitle } from "@mui/material";
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
+
 import { getAllForms, createForm } from "../../helper/formRequest";
 function MainForm(props){
 
@@ -32,7 +39,8 @@ function MainForm(props){
     const [tieude, settieude] = useState("")
     const [formProperty, setFormProperty] = useState({
         name: props.form?props.form.name:"Tên form",
-        id: props.form?props.form.id:(new Date).toISOString()
+        id: props.form?props.form.id:(new Date).toISOString(),
+        width: 500
     })
     const [formStruct, setFormStruct] = useState(
         props.formElement?props.formElement:[]
@@ -204,12 +212,49 @@ function MainForm(props){
         console.log(formStruct)
     }, [formStruct])
 
+    const [dialogConfigStatus, setDialogConfigStatus] = useState(false)
+
     return(
         <Box 
             sx={{
                 height: "100vh"
             }}
+            style={{
+                width: "100vw"
+            }}
         >
+
+        <Dialog
+            open={dialogConfigStatus}
+        >
+            <DialogTitle>Configure form</DialogTitle>
+            <Grid
+                container
+                style={{
+                    padding: "10px"
+                }}
+                spacing={2}
+            >   
+                <Grid item xs={8}>
+                    <TextFieldTemplate id="form-name" label="Name" variant="outlined" style={{width:"100%"}}
+                        value={formProperty?.name}
+                        onChange={(e) => {let value = e.target.value; setFormProperty({...formProperty, name: value?value:""})}}
+                    />
+                </Grid>
+                <Grid item xs={4}>
+                    <TextFieldTemplate id="outlined-basic" label="Width (px)" variant="outlined"
+                        type={"number"}
+                        value={formProperty?.width}
+                        onChange={(e) => {let value = e.target.value; setFormProperty({...formProperty, width: value?value:""})}}
+                    />
+                </Grid>
+            </Grid>            
+            <DialogActions>
+                <Button onClick={()=>setDialogConfigStatus(false)}>Close</Button>
+            </DialogActions>
+        </Dialog>
+
+
         <Paper style={{height: "3em", display: "flex", alignItems: "center", justifyContent: "space-between", paddingLeft: "1em", paddingRight: "1em"}}>
             <div style={{display: "flex", alignItems: "center"}}>
                 {backCreateEdit &&
@@ -222,7 +267,7 @@ function MainForm(props){
                     <VisibilityIcon />
                 </Fab>
                 <Fab size="small" color="success" aria-label="add" style={{marginLeft: "5px", marginRight: "5px"}}>
-                    <SettingsIcon />
+                    <SettingsIcon onClick={()=>setDialogConfigStatus(true)}/>
                 </Fab>
                 <Fab size="small" color="secondary" aria-label="add" style={{marginLeft: "5px", marginRight: "5px"}} 
                         onClick={onSaveForm}>
@@ -281,38 +326,49 @@ function MainForm(props){
             {/* Box giao diện edit */}
             <Box
                 sx={{
-                width: "75vw",
                 height: "100%",
                 overflow: "scroll",
                 display: 'block',
-                backgroundColor: 'primary.dark',
+                backgroundColor: 'primary.main',
                 border: "3px solid black",
                 boxSizing: "border-box",
-                padding: 5
+                position: "relative",
                 // '&:hover': {
                 //     backgroundColor: 'primary.main',
                 //     opacity: [0.9, 0.8, 0.7],
                 // },
                 }}
+                style={{
+                    backgroundColor: "gray",
+                    width: "100%",
+                    overflow: "scroll",
+                }}
                 onScroll={refUpdatePositionComponent(componentArray.current)}
             >  
-            
-
-            
-
                 <Paper 
                     id="main-form"
                     ref={drop}
                     elevation={3}
                     sx={{
-                        width: "60vw",
+                        width: (formProperty?formProperty.width:500) + "px",
                         height: "fit-content",
                         // height: "200vh",
                         padding: "1cm",
                         boxSizing: "border-box",
                         marginLeft: "auto",
                         marginRight: "auto"
-                    }}>
+                    }}
+
+                    style={{
+                        position: "absolute",
+                        margin: "auto auto auto auto",
+                        left: 0,
+                        right: 0,
+                        top: 0,
+                        bottom: 0
+                    }}
+                    
+                    >
 
                     <SortableList 
                         formStruct={formStruct}
@@ -337,8 +393,12 @@ function MainForm(props){
             
             {/* Box cái đặt thuộc tính cho component */}
             <Box
-                sx={{
-                    padding: "10px"
+                style={{
+                    minWidth: "200px",
+                    maxWidth: "200px",
+                    width:"200px",
+                    padding: "10px",
+                    boxSizing: "border-box"
                 }}
             >
                 {
