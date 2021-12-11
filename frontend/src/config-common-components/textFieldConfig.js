@@ -1,5 +1,6 @@
 import { Box, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { CheckBox } from '../common-components/checkBoxCustom';
 import GridWidth from './common/grid-width';
 
 function TextFieldConfig(props){
@@ -52,7 +53,7 @@ function TextFieldConfig(props){
                 gridWidth={state?.gridWidth}
                 onGridWidthChange={(gridWidth) => {setState({...state, gridWidth: gridWidth})}}
             />
-
+            <input type="checkbox" id="myCheck" onclick="myFunction()"></input>  Check is compulsory
         </Box>
     )
 }

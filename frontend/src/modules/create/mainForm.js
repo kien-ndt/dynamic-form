@@ -25,6 +25,8 @@ import { TitleForm } from "../../common-components/titleFormCustom";
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 
 import { getAllForms, createForm } from "../../helper/formRequest";
+import BlankConfig from "../../config-common-components/blankConfig";
+import { Blank } from "../../common-components/blankCustom";
 function MainForm(props){
 
     const {backCreateEdit} = props;
@@ -274,7 +276,12 @@ function MainForm(props){
                         <TestDrag 
                             name={typeInput.TitleForm}
                         />
-                    </ListItem>          
+                    </ListItem>      
+                    <ListItem disablePadding>                        
+                        <TestDrag 
+                            name={typeInput.Blank}
+                        />
+                    </ListItem>         
                 </List>               
             </Box>
 
@@ -385,6 +392,13 @@ function MainForm(props){
                         updatePropertyComponent={(newProperty) => updatePropertyComponent(elementChose.index, newProperty)}
                     />
                 }
+                 {
+                    elementChose && elementChose.type === typeInput.Blank &&
+                    <BlankConfig 
+                        property={formStruct?formStruct[elementChose.index].property:null}
+                        updatePropertyComponent={(newProperty) => updatePropertyComponent(elementChose.index, newProperty)}
+                    />
+                }
 
 
             </Box>
@@ -483,6 +497,15 @@ const SortableItem = SortableElement((props) =>{
                     onChoseOneComponent={(typeComponent)=>onChoseOneComponent(index1, typeComponent)}
                 />
             }
+            {
+                item.type===typeInput.Blank &&
+                <Blank
+                    isEdit={true}
+                    property={item.property}
+                    onChoseOneComponent={(typeComponent)=>onChoseOneComponent(index1, typeComponent)}
+                />
+            }
+
 
         </Grid> 
     )

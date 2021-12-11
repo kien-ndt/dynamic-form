@@ -7,6 +7,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { CheckBox } from '../common-components/checkBoxCustom';
 
 function CheckBoxConfig(props){
     const defaultColor = {
@@ -129,30 +130,35 @@ function CheckBoxConfig(props){
                 value={state.content}
                 onChange={(e) => onContentChange(e)}
             />
+            
+                
+            
 
             <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Color</InputLabel>
                 <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                kolor={kolor}
+                value={kolor}
                 label="Color"
                 onChange={handleChange}
                 onChange={(e) => onColorChange(e)}
                 >
-                <MenuItem kolor={"black"}>Black</MenuItem>
-                <MenuItem kolor={"red"}>Red</MenuItem>
-                <MenuItem kolor={"yellow"}>Yellow</MenuItem>
-                <MenuItem kolor={"blue"}>Blue</MenuItem>
-                <MenuItem kolor={"green"}>Green</MenuItem>
-                <MenuItem kolor={"purple"}>Purple</MenuItem>
+                <MenuItem value={"black"}>Black</MenuItem>
+                <MenuItem value={"red"}>Red</MenuItem>
+                <MenuItem value={"yellow"}>Yellow</MenuItem>
+                <MenuItem value={"blue"}>Blue</MenuItem>
+                <MenuItem value={"green"}>Green</MenuItem>
+                <MenuItem value={"purple"}>Purple</MenuItem>
                 </Select>
             </FormControl>
             <GridWidth
                 gridWidth={state?.gridWidth}
                 onGridWidthChange={(gridWidth) => {setState({...state, gridWidth: gridWidth})}}
             />
+            <input type="checkbox" id="myCheck" onclick="myFunction()"></input>  Check is compulsory
         </Box>
+        
     )
 }
 

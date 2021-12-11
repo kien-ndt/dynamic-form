@@ -9,7 +9,7 @@ function BlankCustom(props){
     const [labelform, setLabelform] = useState()
 
     const defaultValue = {
-        label: "label",
+        label: "",
     }
 
     useEffect(() => {
@@ -30,12 +30,12 @@ function BlankCustom(props){
 
     return(
         <React.Fragment>  
-            onClick={()=>onChoseOneComponent("textfield")}          
+                      
             <Box
                 
             >
                 <p>
-                {state?state.label:"abc"}
+                {state?state.label:""}
             
                 </p>
                 
