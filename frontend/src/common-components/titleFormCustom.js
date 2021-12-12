@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { Box} from '@mui/material';
-import TitleFormConfig from '../config-common-components/titleFormConfig';
-import { fontSize } from '@mui/system';
+
 function TitleFormCustom(props){
     let {property, onChoseOneComponent} = props;
 
@@ -16,9 +15,6 @@ function TitleFormCustom(props){
         fontSize: "large"
     }
     
-    const defaultColor = {
-        kolor: "black"
-    }
 
     useEffect(() => {
         
@@ -48,7 +44,7 @@ function TitleFormCustom(props){
             <Box
                 onClick={()=>onChoseOneComponent("titleform")}
             >
-                <p style={{fontSize:state.fontSize?state.fontSize:"large", color:state.color?state.color:"black", wordBreak: "break-all"}}>
+                <p style={{fontSize:"large", color:"black", wordBreak: "break-all"}}>
                 {state?state.label:"abc"}
             
                 </p>
