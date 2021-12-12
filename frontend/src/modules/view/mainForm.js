@@ -24,7 +24,8 @@ function ViewForm(props){
     const [tieude, settieude] = useState("")
     const [formProperty, setFormProperty] = useState({
         name: props.form?props.form.name:"Tên form",
-        id: props.form?props.form.id:(new Date).toISOString()
+        id: props.form?props.form.id:(new Date).toISOString(),
+        width: props.form?props.form.width:500
     })
     const [formStruct, setFormStruct] = useState(
         props.formElement?props.formElement:[]
@@ -203,7 +204,7 @@ function ViewForm(props){
                 ref={drop}
                 elevation={3}
                 sx={{
-                    width: "800px",
+                    width: formProperty+'px',
                     height: "fit-content",
                     // height: "200vh",
                     padding: "1cm",
