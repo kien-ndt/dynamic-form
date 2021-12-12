@@ -11,6 +11,7 @@ function SelectBoxCustom(props){
     const [state, setState] = useState()
 
     const defaultValue = {
+        kolor: "black",
         label: "label",
         content: ["Choice 1"]
     }
@@ -20,6 +21,9 @@ function SelectBoxCustom(props){
         if (property){
             if (property.label){
                 value.label = property.label
+            }
+            if (property.kolor){
+                value.kolor = property.kolor
             }
             if (property.content && property.content.length > 0){
                 value.content = property.content

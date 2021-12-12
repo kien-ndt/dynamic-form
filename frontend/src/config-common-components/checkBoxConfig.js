@@ -16,16 +16,12 @@ function CheckBoxConfig(props){
 
     const {property, updatePropertyComponent} = props
 
-    const [kolor, setColor] = useState({
-        kolor: property?property.kolor:defaultColor.kolor,
-    });
-
-    const handleChange = (event) => {
-        setColor(event.target.value);
-    };
 
     
+    
     const defaultValue = {
+        fontSize: "large",
+        kolor: "black",
         label: "label checkbox",
         content: ["Choice 1"]
     }
@@ -45,6 +41,8 @@ function CheckBoxConfig(props){
     }
 
     const [state, setState] = useState({
+        fontSize: property?property.fontSize:defaultValue.fontSize,
+        kolor: property?property.kolor:defaultColor.kolor,
         label: property?property.label:defaultValue.label,
         content: property?convertArrayToStringElementToRow(property.content):convertArrayToStringElementToRow(defaultValue.content),
         gridWidth: property?property.gridWidth:4
@@ -59,17 +57,29 @@ function CheckBoxConfig(props){
             ...state,
             label: value
         })
+        console.log("DA set Label")
     }
 
-    const onColorChange = (e) => {
-        
-        let value = e?.target?.value;
-        setColor({
-            ...kolor,
-            kolor: value
+    const handleChange = (event) => {
+        let value = event?.target?.value;
+        setState({
+            ...state,
+            kolor:value
         })
+        console.log(value)
+    };
+    const fontSizeChange= (event) => {
+        let value = event?.target?.value;
+        setState({
+            ...state,
+            fontSize:value
+        })
+        console.log(value)
+    };
 
-    }
+
+
+    
 
     const onContentChange = (e) => {
         let value = e?.target?.value;
@@ -94,20 +104,16 @@ function CheckBoxConfig(props){
 
 
     useEffect(() => {
-        console.log("da update mau")
+        console.log(state.kolor)
         updatePropertyComponent({
+            fontSize: state.fontSize,
+            kolor: state.kolor,
             label: state.label,
             content: convertStringToArrayRowToElement(state.content),
             gridWidth: state.gridWidth
         })
+        console.log(property)
     }, [state])
-    useEffect(() => {
-        
-        updatePropertyComponent({
-            kolor: state.kolor,
-            
-        })
-    }, [kolor])
 
 
     return(
@@ -129,6 +135,7 @@ function CheckBoxConfig(props){
                 InputLabelProps={{ shrink: true }}
                 value={state.content}
                 onChange={(e) => onContentChange(e)}
+                onCanPlay={handleChange}
             />
             
                 
@@ -139,10 +146,9 @@ function CheckBoxConfig(props){
                 <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={kolor}
+                value={state.kolor}
                 label="Color"
                 onChange={handleChange}
-                onChange={(e) => onColorChange(e)}
                 >
                 <MenuItem value={"black"}>Black</MenuItem>
                 <MenuItem value={"red"}>Red</MenuItem>
@@ -150,6 +156,21 @@ function CheckBoxConfig(props){
                 <MenuItem value={"blue"}>Blue</MenuItem>
                 <MenuItem value={"green"}>Green</MenuItem>
                 <MenuItem value={"purple"}>Purple</MenuItem>
+                </Select>
+            </FormControl>
+            <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">FontSize</InputLabel>
+                <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={state.fontSize}
+                fontSize="large"
+                onChange={fontSizeChange}
+                >
+                <MenuItem value={"xx-large"}>XX-LARGE</MenuItem>
+                <MenuItem value={"large"}>LARGE</MenuItem>
+                <MenuItem value={"medium"}>YELLOW</MenuItem>
+                <MenuItem value={"small"}>SMALL</MenuItem>
                 </Select>
             </FormControl>
             <GridWidth

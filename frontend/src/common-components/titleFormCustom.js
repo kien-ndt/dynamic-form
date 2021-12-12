@@ -2,14 +2,22 @@ import React, { useEffect, useState } from 'react';
 
 import { Box} from '@mui/material';
 import TitleFormConfig from '../config-common-components/titleFormConfig';
+import { fontSize } from '@mui/system';
 function TitleFormCustom(props){
     let {property, onChoseOneComponent} = props;
 
     const [state, setState] = useState()
-    const [labelform, setLabelform] = useState()
+
 
     const defaultValue = {
-        label: "label",
+        kolor: "black",
+        label: "label checkbox",
+        content: ["Choice 1"],
+        fontSize: "large"
+    }
+    
+    const defaultColor = {
+        kolor: "black"
     }
 
     useEffect(() => {
@@ -19,21 +27,28 @@ function TitleFormCustom(props){
             if (property.label){
                 value.label = property.label
             }
+            if (property.kolor){
+                value.kolor = property.kolor
+            }
+            if (property.fontSize){
+                value.fontSize = property.fontSize
+            }
+            if (property.content && property.content.length > 0){
+                value.content = property.content
+            }
         }
-        setState(value);
-        setLabelform({
-            ...labelform,
-            labelform: value})
     
-            
-        }, [property])
+        setState(value)
+        console.log(property)
+        
+    }, [property] )
 
     return(
         <React.Fragment>            
             <Box
-                onClick={()=>onChoseOneComponent("textfield")}
+                onClick={()=>onChoseOneComponent("titleform")}
             >
-                <p style={{wordBreak: "break-all"}}>
+                <p style={{fontSize:state.fontSize?state.fontSize:"large", color:state.color?state.color:"black", wordBreak: "break-all"}}>
                 {state?state.label:"abc"}
             
                 </p>

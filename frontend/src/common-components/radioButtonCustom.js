@@ -8,6 +8,8 @@ function RadioButtonCustom(props){
     const [state, setState] = useState()
 
     const defaultValue = {
+        fontSize: "large",
+        kolor: "black",
         label: "label",
         content: ["Choice 1"]
     }
@@ -17,6 +19,12 @@ function RadioButtonCustom(props){
         if (property){
             if (property.label){
                 value.label = property.label
+            }
+            if (property.kolor){
+                value.kolor = property.kolor
+            }
+            if (property.fontSize){
+                value.fontSize = property.fontSize
             }
             if (property.content && property.content.length > 0){
                 value.content = property.content
@@ -34,12 +42,12 @@ function RadioButtonCustom(props){
             <Box
                 onClick={()=>onChoseOneComponent("radiobutton")}
             >
-                <label>{state?state.label:"label"}</label>
-                <FormGroup>
+                <label style={{color:state?state.kolor:"black", fontSize:state?state.fontSize:"large"}}>{state?state.label:"label"}</label>
+                <FormGroup style={{color:state?state.kolor:"black", fontSize:"xx-large"}}>
                     {
                         state && state.content && state.content.length > 0 &&
                         state.content.map((item, index) => {
-                            return <FormControlLabel 
+                            return <FormControlLabel style={{color:state?state.kolor:"black", fontSize:state?state.fontSize:"xx-large"}}
                             key={"formcontroll" + index}
                             value={item}
                             control={<Radio  key={"checkbox" + index}/>} label={item} />

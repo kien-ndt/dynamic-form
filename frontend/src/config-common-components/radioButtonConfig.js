@@ -3,11 +3,18 @@ import { useEffect, useState } from 'react';
 import { CheckBox } from '../common-components/checkBoxCustom';
 import GridWidth from './common/grid-width';
 
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
 function RadioButtonConfig(props){
 
     const {property, updatePropertyComponent} = props
     
     const defaultValue = {
+        fontSize: "large",
+        kolor: "black",
         label: "label",
         content: ["Choice 1"]
     }
@@ -27,6 +34,8 @@ function RadioButtonConfig(props){
     }
 
     const [state, setState] = useState({
+        fontSize: property?property.fontSize: defaultValue.fontSize,
+        kolor: property?property.kolor:defaultValue.kolor,
         label: property?property.label:defaultValue.label,
         content: property?convertArrayToStringElementToRow(property.content):convertArrayToStringElementToRow(defaultValue.content),
         gridWidth: property?property.gridWidth:4
@@ -39,6 +48,24 @@ function RadioButtonConfig(props){
             label: value
         })
     }
+    const handleChange = (event) => {
+        let value = event?.target?.value;
+        setState({
+            ...state,
+            kolor:value
+        })
+        console.log(value)
+    };
+
+    const fontSizeChange = (event) => {
+        let value = event?.target?.value;
+        setState({
+            ...state,
+            fontSize:value
+        })
+        console.log(value)
+    };
+
 
     const onContentChange = (e) => {
         let value = e?.target?.value;
@@ -63,6 +90,8 @@ function RadioButtonConfig(props){
 
     useEffect(() => {
         updatePropertyComponent({
+            fontSize: state.fontSize,
+            kolor: state.kolor,
             label: state.label,
             content: convertStringToArrayRowToElement(state.content),
             gridWidth: state.gridWidth
@@ -95,7 +124,38 @@ function RadioButtonConfig(props){
                 value={state.content}
                 onChange={(e) => onContentChange(e)}
             />
-            
+            <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Color</InputLabel>
+                <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={state.kolor}
+                label="Color"
+                onChange={handleChange}
+                >
+                <MenuItem value={"black"}>Black</MenuItem>
+                <MenuItem value={"red"}>Red</MenuItem>
+                <MenuItem value={"yellow"}>Yellow</MenuItem>
+                <MenuItem value={"blue"}>Blue</MenuItem>
+                <MenuItem value={"green"}>Green</MenuItem>
+                <MenuItem value={"purple"}>Purple</MenuItem>
+                </Select>
+            </FormControl>
+            <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">FontSize</InputLabel>
+                <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={state.fontSize}
+                fontSize="large"
+                onChange={fontSizeChange}
+                >
+                <MenuItem value={"xx-large"}>XX-LARGE</MenuItem>
+                <MenuItem value={"large"}>LARGE</MenuItem>
+                <MenuItem value={"medium"}>YELLOW</MenuItem>
+                <MenuItem value={"small"}>SMALL</MenuItem>
+                </Select>
+            </FormControl>
             <GridWidth
                 gridWidth={state?.gridWidth}
                 onGridWidthChange={(gridWidth) => {setState({...state, gridWidth: gridWidth})}}
