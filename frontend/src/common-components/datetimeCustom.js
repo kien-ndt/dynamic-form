@@ -5,6 +5,9 @@ import { Box, FormGroup, FormControlLabel, TextField, Datet } from '@mui/materia
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import DatePicker from '@mui/lab/DatePicker';
+
+
 
 function DateTimeCustom(props){
     let {property, onChoseOneComponent} = props;
@@ -31,15 +34,13 @@ function DateTimeCustom(props){
                 onClick={()=>onChoseOneComponent("datetime")}
             >
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DateTimePicker
-                    renderInput={(props) => <TextField {...props} label="Date" resize={{fontSize: "50px"}}/>}
-                    // label="DateTimePicker"
-                    
-                    InputLabelProps={{ shrink: true }}
-                    // value={value}
-                    // onChange={(newValue) => {
-                    // setValue(newValue);
-                    // }}
+                <DatePicker
+                    label="Date"
+                    value={state}
+                    onChange={(newValue) => {
+                    setState(newValue);
+                    }}
+                    renderInput={(params) => <TextField {...params} />}
                 />
                 </LocalizationProvider>
             </Box>

@@ -12,8 +12,9 @@ function SelectBoxCustom(props){
 
     const defaultValue = {
         kolor: "black",
-        label: "label",
-        content: ["Choice 1"]
+        label: "Label",
+        content: ["Choice 1"],
+        fontSize: "large"
     }
 
     useEffect(() => {
@@ -24,6 +25,9 @@ function SelectBoxCustom(props){
             }
             if (property.kolor){
                 value.kolor = property.kolor
+            }
+            if (property.fontSize){
+                value.fontSize = property.fontSize
             }
             if (property.content && property.content.length > 0){
                 value.content = property.content
@@ -37,11 +41,14 @@ function SelectBoxCustom(props){
                      
             <Box sx={{ minWidth: 10 }} onClick={()=>onChoseOneComponent("selectbox")}>
             <FormControl fullWidth>
-                <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                <InputLabel variant="standard" htmlFor="uncontrolled-native" style={{color:state?state.kolor:"black", fontSize:state?state.fontSize:"large"}}>
                 {state?.label}
                 </InputLabel>
                 <NativeSelect
+                
+                style={{color:state?state.kolor:"black", fontSize:state?state.fontSize:"large"}}
                 defaultValue={1}
+                
                 inputProps={{
                     name: 'age',
                     id: 'uncontrolled-native',

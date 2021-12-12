@@ -9,6 +9,7 @@ function TextFieldCustom(props){
 
     const defaultValue = {
         label: "label",
+        kolor: "black"
     }
 
     useEffect(() => {
@@ -27,6 +28,7 @@ function TextFieldCustom(props){
                 onClick={()=>onChoseOneComponent("textfield")}
             >
                 <TextField 
+                    style={{color:state?state.kolor:"red", fontSize:state?state.fontSize:"large"}}
                     fullWidth
                     id="textfield-label" 
                     label={state?state.label:""}
