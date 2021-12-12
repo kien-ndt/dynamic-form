@@ -96,6 +96,7 @@ function TitleFormConfig(props){
                 <MenuItem value={"purple"}>Purple</MenuItem>
                 </Select>
             </FormControl>
+            <div style={{marginBottom: "20px", width: "inherit"}}></div>
             <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">FontSize</InputLabel>
                 <Select

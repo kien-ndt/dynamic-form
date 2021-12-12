@@ -157,10 +157,13 @@ function CheckBoxConfig(props){
                 <MenuItem value={"green"}>Green</MenuItem>
                 <MenuItem value={"purple"}>Purple</MenuItem>
                 </Select>
+                
             </FormControl>
-            <FormControl fullWidth>
+            <div style={{marginBottom: "20px", width: "inherit"}}></div>
+            <FormControl fullWidth >
                 <InputLabel id="demo-simple-select-label">FontSize</InputLabel>
                 <Select
+                style={{marginBottom: "20px", width: "inherit"}}
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={state.fontSize}
@@ -169,7 +172,7 @@ function CheckBoxConfig(props){
                 >
                 <MenuItem value={"xx-large"}>XX-LARGE</MenuItem>
                 <MenuItem value={"large"}>LARGE</MenuItem>
-                <MenuItem value={"medium"}>YELLOW</MenuItem>
+                <MenuItem value={"medium"}>MEDIUM</MenuItem>
                 <MenuItem value={"small"}>SMALL</MenuItem>
                 </Select>
             </FormControl>

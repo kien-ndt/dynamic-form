@@ -123,6 +123,7 @@ function RadioButtonConfig(props){
                 InputLabelProps={{ shrink: true }}
                 value={state.content}
                 onChange={(e) => onContentChange(e)}
+                style={{marginBottom: "10px"}}
             />
             <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Color</InputLabel>
@@ -141,6 +142,7 @@ function RadioButtonConfig(props){
                 <MenuItem value={"purple"}>Purple</MenuItem>
                 </Select>
             </FormControl>
+            <div style={{marginBottom: "20px", width: "inherit"}}></div>
             <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">FontSize</InputLabel>
                 <Select
