@@ -72,8 +72,9 @@ function SelectBoxConfig(props){
             <TextField 
                 id="selectbox-label" 
                 label="Label" 
+                
                 variant="standard" 
-                style={{marginBottom: "20px", width: "inherit"}} 
+                
                 InputLabelProps={{ shrink: true }}
                 value={state?(state.label?state.label:""):""}
                 onChange={(e) => onLabelChange(e)}

@@ -11,7 +11,6 @@ function TitleFormCustom(props){
     const defaultValue = {
         kolor: "black",
         label: "label checkbox",
-        content: ["Choice 1"],
         fontSize: "large"
     }
     
@@ -44,7 +43,7 @@ function TitleFormCustom(props){
             <Box
                 onClick={()=>onChoseOneComponent("titleform")}
             >
-                <p style={{fontSize:"large", color:"black", wordBreak: "break-all"}}>
+                <p style={{color:state?state.kolor:"black", fontSize:state?state.fontSize:"xx-large", wordBreak: "break-all"}}>
                 {state?state.label:"abc"}
             
                 </p>

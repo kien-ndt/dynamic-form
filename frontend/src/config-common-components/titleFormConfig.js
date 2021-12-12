@@ -108,7 +108,7 @@ function TitleFormConfig(props){
                 >
                 <MenuItem value={"xx-large"}>XX-LARGE</MenuItem>
                 <MenuItem value={"large"}>LARGE</MenuItem>
-                <MenuItem value={"medium"}>YELLOW</MenuItem>
+                <MenuItem value={"medium"}>MEDIUM</MenuItem>
                 <MenuItem value={"small"}>SMALL</MenuItem>
                 </Select>
             </FormControl>
