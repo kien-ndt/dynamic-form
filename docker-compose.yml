@@ -1,0 +1,46 @@
+# Docker Compose file Reference (https://docs.docker.com/compose/compose-file/)
+
+version: '3.7'
+services:
+  app-server:
+    build:
+      context: backend-dynamic-form
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080" 
+    restart: always
+    depends_on: 
+      - db     
+    networks:
+      - backend
+      - frontend
+ 
+  app-client:
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000" 
+    restart: always
+    depends_on:
+      - app-server
+    networks:
+      - frontend  
+  
+  db:
+    image: mongo
+    container_name: mongoDB  
+    ports:
+      - "27017:27017"
+    restart: always
+    environment:
+      - MONGO_INITDB_DATABASE=dynamicform   
+    volumes:
+      - /home/kienndt/mongodb/database:/data/db  
+    networks:
+      - backend  
+  
+
+networks:
+  backend:
+  frontend:  

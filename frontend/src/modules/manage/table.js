@@ -128,7 +128,7 @@ function TableManagement() {
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                                 <TableCell component="th" scope="row">
-                                    {index}
+                                    {index+1}
                                 </TableCell>
                                 <TableCell align="left">{form.id}</TableCell>
                                 <TableCell align="left">{form.name}</TableCell>
