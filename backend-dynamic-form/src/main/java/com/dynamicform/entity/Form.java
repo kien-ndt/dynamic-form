@@ -17,5 +17,7 @@ public class Form {
 
     private String name;
 
+    private int width;
+
     private List<FormElement> formElement;
 }

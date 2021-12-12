@@ -3,9 +3,10 @@ import { useEffect, useState } from 'react';
 import { CheckBox } from '../common-components/checkBoxCustom';
 import GridWidth from './common/grid-width';
 
+import { Button } from '@mui/material';
 function DatetimeConfig(props){
 
-    const {property, updatePropertyComponent} = props
+    const {property, updatePropertyComponent, onDeleteComponent} = props
 
     const [state, setState] = useState({
         
@@ -48,6 +49,8 @@ function DatetimeConfig(props){
                 onGridWidthChange={(gridWidth) => {setState({...state, gridWidth: gridWidth})}}
             />
             <input type="checkbox" id="myCheck" onclick="myFunction()"></input>  Check is compulsory
+            
+            <Button onClick={onDeleteComponent}>Delete</Button>
         </Box>
     )
 }

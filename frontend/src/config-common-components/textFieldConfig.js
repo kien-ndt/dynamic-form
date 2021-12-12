@@ -3,9 +3,10 @@ import { useEffect, useState } from 'react';
 import { CheckBox } from '../common-components/checkBoxCustom';
 import GridWidth from './common/grid-width';
 
+import { Button } from '@mui/material';
 function TextFieldConfig(props){
 
-    const {property, updatePropertyComponent} = props
+    const {property, updatePropertyComponent, onDeleteComponent} = props
 
     const defaultValue = {
         label: "label",
@@ -54,6 +55,8 @@ function TextFieldConfig(props){
                 onGridWidthChange={(gridWidth) => {setState({...state, gridWidth: gridWidth})}}
             />
             <input type="checkbox" id="myCheck" onclick="myFunction()"></input>  Check is compulsory
+            
+            <Button onClick={onDeleteComponent}>Delete</Button>
         </Box>
     )
 }

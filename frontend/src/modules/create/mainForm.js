@@ -42,7 +42,7 @@ function MainForm(props){
     const [formProperty, setFormProperty] = useState({
         name: props.form?props.form.name:"Tên form",
         id: props.form?props.form.id:(new Date).toISOString(),
-        width: 500
+        width: props.form?props.form.width:500
     })
     const [formStruct, setFormStruct] = useState(
         props.formElement?props.formElement:[]
@@ -176,8 +176,20 @@ function MainForm(props){
 
     const onSaveForm = () => {
         // console.log(formStruct)
-        createForm({id: formProperty.id, name: formProperty.name, formElement: formStruct})
+        // console.log({id: formProperty.id, name: formProperty.name, formElement: formStruct})
+        createForm({
+            id: formProperty.id, 
+            name: formProperty.name, 
+            width: formProperty.width,
+            formElement: formStruct})
         // getAllForms().then((data) => console.log(JSON.stringify(data.data) + " askdfksdksdfkjsd"));
+    }
+
+    const onDeleteComponent = (index) => {
+        let newFormStruct = [...formStruct];
+        newFormStruct.splice(index, 1);
+        setFormStruct(newFormStruct);
+        setElementChose(null)
     }
 
     useEffect(() => {   
@@ -413,6 +425,7 @@ function MainForm(props){
                     <CheckBoxConfig 
                         property={formStruct?formStruct[elementChose.index].property:null}
                         updatePropertyComponent={(newProperty) => updatePropertyComponent(elementChose.index, newProperty)}
+                        onDeleteComponent={()=>onDeleteComponent(elementChose.index)}
                     />
                 }
                 {
@@ -420,6 +433,7 @@ function MainForm(props){
                     <RadioButtonConfig 
                         property={formStruct?formStruct[elementChose.index].property:null}
                         updatePropertyComponent={(newProperty) => updatePropertyComponent(elementChose.index, newProperty)}
+                        onDeleteComponent={()=>onDeleteComponent(elementChose.index)}
                     />
                 }
                 {
@@ -427,6 +441,7 @@ function MainForm(props){
                     <TextFieldConfig 
                         property={formStruct?formStruct[elementChose.index].property:null}
                         updatePropertyComponent={(newProperty) => updatePropertyComponent(elementChose.index, newProperty)}
+                        onDeleteComponent={()=>onDeleteComponent(elementChose.index)}
                     />
                 }
 
@@ -435,6 +450,7 @@ function MainForm(props){
                     <DatetimeConfig 
                         property={formStruct?formStruct[elementChose.index].property:null}
                         updatePropertyComponent={(newProperty) => updatePropertyComponent(elementChose.index, newProperty)}
+                        onDeleteComponent={()=>onDeleteComponent(elementChose.index)}
                     />
                 }
 
@@ -443,6 +459,7 @@ function MainForm(props){
                     <SelectBoxConfig 
                         property={formStruct?formStruct[elementChose.index].property:null}
                         updatePropertyComponent={(newProperty) => updatePropertyComponent(elementChose.index, newProperty)}
+                        onDeleteComponent={()=>onDeleteComponent(elementChose.index)}
                     />
                 }
                  {
@@ -450,6 +467,7 @@ function MainForm(props){
                     <TitleFormConfig 
                         property={formStruct?formStruct[elementChose.index].property:null}
                         updatePropertyComponent={(newProperty) => updatePropertyComponent(elementChose.index, newProperty)}
+                        onDeleteComponent={()=>onDeleteComponent(elementChose.index)}
                     />
                 }
                  {
@@ -457,6 +475,7 @@ function MainForm(props){
                     <BlankConfig 
                         property={formStruct?formStruct[elementChose.index].property:null}
                         updatePropertyComponent={(newProperty) => updatePropertyComponent(elementChose.index, newProperty)}
+                        onDeleteComponent={()=>onDeleteComponent(elementChose.index)}
                     />
                 }
 

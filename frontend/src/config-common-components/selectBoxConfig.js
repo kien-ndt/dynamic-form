@@ -2,9 +2,10 @@ import { Box, Checkbox, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import GridWidth from './common/grid-width';
 
+import { Button } from '@mui/material';
 function SelectBoxConfig(props){
 
-    const {property, updatePropertyComponent} = props
+    const {property, updatePropertyComponent, onDeleteComponent} = props
 
     const convertArrayToStringElementToRow = (arr) => {
         let strRes = ""
@@ -93,6 +94,8 @@ function SelectBoxConfig(props){
                 onGridWidthChange={(gridWidth) => {setState({...state, gridWidth: gridWidth})}}
             />
             <input type="checkbox" id="myCheck" onclick="myFunction()"></input>  Check is compulsory
+            
+            <Button onClick={onDeleteComponent}>Delete</Button>
         </Box>
     )
 }
