@@ -2,9 +2,22 @@ import { Box, Checkbox, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import GridWidth from './common/grid-width';
 
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 function SelectBoxConfig(props){
 
     const {property, updatePropertyComponent} = props
+
+
+    
+    const defaultValue = {
+        fontSize: "large",
+        kolor: "black",
+        label: "label checkbox",
+        content: ["Choice 1"]
+    }
 
     const convertArrayToStringElementToRow = (arr) => {
         let strRes = ""
@@ -24,6 +37,8 @@ function SelectBoxConfig(props){
         label: property?property.label:"label",
         content: property?convertArrayToStringElementToRow(property.content):"choice 1",
         gridWidth: property?property.gridWidth:4,
+        fontSize: property?property.fontSize:"large",
+        kolor: property?property.kolor:"black"
     });
     
     const onLabelChange = (e) => {
@@ -42,6 +57,23 @@ function SelectBoxConfig(props){
         })
     }
 
+    const handleChange = (event) => {
+        let value = event?.target?.value;
+        setState({
+            ...state,
+            kolor:value
+        })
+        console.log(value)
+    };
+    const fontSizeChange= (event) => {
+        let value = event?.target?.value;
+        setState({
+            ...state,
+            fontSize:value
+        })
+        console.log(value)
+    };
+
     const convertStringToArrayRowToElement = (strRes) => {
         let arr = []        
         if (strRes && strRes.length > 0){
@@ -55,9 +87,11 @@ function SelectBoxConfig(props){
 
     useEffect(() => {
         updatePropertyComponent({
+            fontSize: state.fontSize,
             label: state.label,
             content: convertStringToArrayRowToElement(state.content),
-            gridWidth: state.gridWidth
+            gridWidth: state.gridWidth,
+            kolor: state.kolor
         })
     }, [state])
 
@@ -88,6 +122,43 @@ function SelectBoxConfig(props){
                 value={state.content}
                 onChange={(e) => onContentChange(e)}
             />      
+
+<FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Color</InputLabel>
+                <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={state.kolor}
+                label="Color"
+                onChange={handleChange}
+                >
+                <MenuItem value={"black"}>Black</MenuItem>
+                <MenuItem value={"red"}>Red</MenuItem>
+                <MenuItem value={"yellow"}>Yellow</MenuItem>
+                <MenuItem value={"blue"}>Blue</MenuItem>
+                <MenuItem value={"green"}>Green</MenuItem>
+                <MenuItem value={"purple"}>Purple</MenuItem>
+                </Select>
+                
+            </FormControl>
+            <div style={{marginBottom: "20px", width: "inherit"}}></div>
+            <FormControl fullWidth >
+                <InputLabel id="demo-simple-select-label">FontSize</InputLabel>
+                <Select
+                style={{marginBottom: "20px", width: "inherit"}}
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={state.fontSize}
+                fontSize="large"
+                onChange={fontSizeChange}
+                >
+                <MenuItem value={"xx-large"}>XX-LARGE</MenuItem>
+                <MenuItem value={"large"}>LARGE</MenuItem>
+                <MenuItem value={"medium"}>MEDIUM</MenuItem>
+                <MenuItem value={"small"}>SMALL</MenuItem>
+                </Select>
+            </FormControl>
+
             <GridWidth
                 gridWidth={state?.gridWidth}
                 onGridWidthChange={(gridWidth) => {setState({...state, gridWidth: gridWidth})}}
