@@ -17,6 +17,8 @@ import PageviewIcon from '@mui/icons-material/Pageview';
 
 import { getAllForms, deleteForm } from '../../helper/formRequest';
 import { yellow, red, pink } from '@mui/material/colors';
+import { Fab } from '@mui/material';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import MainForm from '../create/mainForm';
 import ViewForm from '../view/mainForm';
 
@@ -46,10 +48,12 @@ function TableManagement() {
     },[])
 
     const [dialogStatus, setDialogStatus] = useState(false)
+    const [dialogViewStatus, setDialogViewStatus] = useState(false)
     const [formSelected, setFormSelected] = useState()
 
     const handleCloseDialog = () => {
-        setDialogStatus(false)        
+        setDialogStatus(false);
+        setDialogViewStatus(false)        
         getAllForms().then((data) => {
             setAllForms(data);
         })
@@ -58,6 +62,12 @@ function TableManagement() {
     const onCreateNew = () => {
         setDialogStatus(true)
         setFormSelected(null)      
+    }
+
+    const onView = (form) => {
+        setDialogStatus(false)
+        setDialogViewStatus(true)
+        setFormSelected(form)
     }
 
     const onEdit = (form) => {
@@ -81,7 +91,7 @@ function TableManagement() {
 
     return (
         <React.Fragment>
-        {/* <Dialog        
+        <Dialog        
             fullScreen
             open={dialogStatus}
             onClose={handleCloseDialog}
@@ -91,17 +101,19 @@ function TableManagement() {
                         backCreateEdit={handleCloseDialog}
                         form={formSelected}
             />
-        </Dialog> */}
+        </Dialog>
         <Dialog    
             fullScreen
-            open={dialogStatus}
+            open={dialogViewStatus}
             onClose={handleCloseDialog}
             // TransitionComponent={Transition}
             minWidth={"fit-content"}
             
         >
+            <Fab size="small" color="primary" aria-label="add" style={{marginLeft: "5px", marginRight: "5px"}}>
+                <KeyboardBackspaceIcon onClick={handleCloseDialog}/>
+            </Fab>
             <ViewForm formElement={formSelected?.formElement} 
-                        backCreateEdit={handleCloseDialog}
                         form={formSelected}
             />
         </Dialog>
@@ -133,7 +145,7 @@ function TableManagement() {
                                 <TableCell align="left">{form.id}</TableCell>
                                 <TableCell align="left">{form.name}</TableCell>
                                 <TableCell align="right">
-                                    <PageviewIcon color='success' onClick={() => onEdit(form)}/>
+                                    <PageviewIcon color='success' onClick={() => onView(form)}/>
                                     <EditIcon sx={{ color: yellow[500] }} onClick={() => onEdit(form)}/>
                                     <ToggleOnIcon sx={{ color: pink[500] }}/>
                                     <DeleteIcon sx={{ color: red[500] }} onClick={() => onDelete(form)}/>
