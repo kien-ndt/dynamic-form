@@ -2,13 +2,14 @@ import { Box, Checkbox, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import GridWidth from './common/grid-width';
 
+import { Button } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 function SelectBoxConfig(props){
 
-    const {property, updatePropertyComponent} = props
+    const {property, updatePropertyComponent, onDeleteComponent} = props
 
 
     
@@ -164,6 +165,8 @@ function SelectBoxConfig(props){
                 onGridWidthChange={(gridWidth) => {setState({...state, gridWidth: gridWidth})}}
             />
             <input type="checkbox" id="myCheck" onclick="myFunction()"></input>  Check is compulsory
+            
+            <Button onClick={onDeleteComponent}>Delete</Button>
         </Box>
     )
 }

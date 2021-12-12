@@ -9,12 +9,14 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { CheckBox } from '../common-components/checkBoxCustom';
 
+import { Button } from '@mui/material';
+
 function CheckBoxConfig(props){
     const defaultColor = {
         kolor: "black"
     }
 
-    const {property, updatePropertyComponent} = props
+    const {property, updatePropertyComponent, onDeleteComponent} = props
 
 
     
@@ -181,6 +183,8 @@ function CheckBoxConfig(props){
                 onGridWidthChange={(gridWidth) => {setState({...state, gridWidth: gridWidth})}}
             />
             <input type="checkbox" id="myCheck" onclick="myFunction()"></input>  Check is compulsory
+
+            <Button onClick={onDeleteComponent}>Delete</Button>
         </Box>
         
     )

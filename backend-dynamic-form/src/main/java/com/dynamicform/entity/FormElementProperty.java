@@ -11,4 +11,5 @@ public class FormElementProperty {
     private String label;
     private List<String> content;
     private int gridWidth;
+    private String kolor;
 }

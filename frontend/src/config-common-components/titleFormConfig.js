@@ -7,9 +7,10 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { Button } from '@mui/material';
 function TitleFormConfig(props){
 
-    const {property, updatePropertyComponent} = props
+    const {property, updatePropertyComponent, onDeleteComponent} = props
 
     const defaultValue = {
         label: "label",
@@ -118,6 +119,8 @@ function TitleFormConfig(props){
             />
             <Checkbox></Checkbox>
             <input type="checkbox" id="myCheck" onclick="myFunction()"></input>  Check is compulsory
+            
+            <Button onClick={onDeleteComponent}>Delete</Button>
         </Box>
         
     )

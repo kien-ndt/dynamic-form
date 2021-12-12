@@ -2,9 +2,10 @@ import { Box, Checkbox, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import GridWidth from './common/grid-width';
 
+import { Button } from '@mui/material';
 function BlankConfig(props){
 
-    const {property, updatePropertyComponent} = props
+    const {property, updatePropertyComponent, onDeleteComponent} = props
 
     const defaultValue = {
         label: "",
@@ -63,6 +64,7 @@ function BlankConfig(props){
                 onGridWidthChange={(gridWidth) => {setState({...state, gridWidth: gridWidth})}}
             />
 
+            <Button onClick={onDeleteComponent}>Delete</Button>
         </Box>
     )
 }
